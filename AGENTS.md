@@ -1,16 +1,23 @@
-# AH Design v2.6 — AI agent instructions
+# AH Design System — Agent Instructions
 
-The canonical authority is `docs/AH_DESIGN_v2.6.md`. Always read `design-system.json`, then `contracts/policies.json`, `contracts/layouts.json`, `contracts/components.json` and `tokens/ah-tokens.json` before generating UI. Machine files are indexes, not replacements for the canonical Markdown.
+**Source of truth:** `docs/AH_DESIGN_v2.6.md` (v2.6, AI contract hardening revision). Read `design-system.json` and the canonical source before UI work. The rest are read-only indexes; never let a generated file silently override the source.
 
-## Mandatory boundaries
-- Default to **privacy-safe-skeleton** in design-only output; do not invent readable navigation, routes, business labels, identifiers, statuses, values or product/customer data.
-- Runtime Loading Skeleton requires explicitly approved stable chrome. A Figma screenshot is not authorization to copy product data.
-- Reuse exact `--ah-*` tokens and DB web-first font policy when licensed assets exist. Never import legacy Design System code.
-- Operational baseline: 1280px = 200px Sidebar + fluid 1080px Main; 16px gutters; 64px topbar; Table rows 44/48px.
-- Desktop/Home is a scoped 1440px reference: Search 292px, Sidebar 16/24px approved runtime text and Home-only sections. Never apply Home geometry globally.
-- Ensure keyboard, contrast, forms, loading states, and 44px mobile effective targets. Do not claim Figma Mobile/Tablet fidelity without separate evidence.
-- When global and Home rules appear contradictory, state the unresolved scope; never silently improvise.
-- Do not commit private business data, secrets or copyrighted DB font binaries.
+## Mandatory order
 
-## Maintenance
-After editing Design.md Section 2.2: run `npm run tokens:sync`, update the source blob SHA in `design-system.json`, and run `npm run validate` + `npm test`. The root `index.html` and `demo/` are synthetic demos, **not** canonical Home implementations.
+1. Read `contracts/policies.json`, select `privacy-safe-skeleton` unless explicitly approved display-safe runtime data exists.
+2. Select `contracts/page-profiles.json` by page type. Desktop/Home is not an Operational Listing.
+3. Read `contracts/components.json` and `tokens/ah-tokens.json`, then confirm the detail in the canonical Design.md.
+4. Follow Section 9.7 precedence: privacy > explicit page scope > operational defaults > responsive non-invention.
+5. Render no inferred readable navigation, customer/product identifiers, statuses, routes, financial values, role/permission copy or unapproved data.
+6. Preserve DB web-first font policy when licensed assets exist; otherwise use its documented fallback, never redistribute font files.
+7. Check keyboard, focus, contrast, forms, loading/empty/error states and 44px effective mobile touch targets.
+
+## Contract governance
+
+- Never hardcode 77 tokens or 19 components as permanent caps; actual counts are derived from source and approved baseline.
+- Changes to machine contracts must be intentional: update `contracts/approved-baseline.json` and `CHANGELOG.md` after source review; run `npm run tokens:sync` if canonical CSS changed and `npm run validate && npm test`.
+- Source scope remains Desktop/Home at the existing 1440px reference for Home-specific geometry. Unverified tablet/mobile and scenario variants must not be invented.
+- No Figma connection is needed or permitted for this repository-only workflow.
+- MCP tools only read explicitly allowed local design assets. Do not create a public endpoint or request credentials.
+
+See `docs/AI_INTEGRATION.md` and `docs/RELEASING.md`.

@@ -1,18 +1,16 @@
-# AH Design System v2.6 — AI-ready
+# AH Design System v2.6.1 — AI-ready Private Repository
 
-**[Canonical Design System](docs/AH_DESIGN_v2.6.md)** · [Machine entrypoint](design-system.json) · [AI connection guide](docs/AI_INTEGRATION.md) · Private Repository
+**Source of truth:** [Design.md](docs/AH_DESIGN_v2.6.md) · [AI setup](docs/AI_INTEGRATION.md) · [Approved contracts](contracts/approved-baseline.json) · [Release checks](docs/RELEASING.md)
 
-This project now provides structured design tokens and contracts for AI tools alongside its existing synthetic HTML demo. AI must have authorized GitHub access, or use the local read-only MCP server. Neither a remote API nor a public hosting endpoint is deployed.
+The Design System exposes canonical CSS/JSON tokens, component/layout/page contracts and a **local read-only MCP**. Default design-only content is `privacy-safe-skeleton`; no real customer/product data or licensed fonts are included.
 
-- [AI rules](AGENTS.md) and [Agent Skill](skills/ah-design-system/SKILL.md)
-- [Tokens (CSS)](tokens/ah-tokens.css) and [Tokens (JSON)](tokens/ah-tokens.json)
-- [Component contracts](contracts/components.json), [Layouts](contracts/layouts.json), [Privacy policy](contracts/policies.json)
-- [Local MCP server](integrations/mcp/server.mjs) and [Validation CI](.github/workflows/design-system-validate.yml)
-
-Default generation mode is **privacy-safe-skeleton**. Home-specific measurements are scoped to Desktop/Home only. Unresolved audit gaps remain documented.
+- Preferred local MCP: `npm install && npm run mcp` (official SDK v2, legacy and modern protocol eras).
+- Legacy no-dependency fallback: `npm run mcp:legacy`.
+- Validation: `npm run tokens:check && npm run validate && npm test`.
+- Review [page precedence](contracts/page-profiles.json), [policies](contracts/policies.json), [schema](schemas/contracts.schema.json) and [evidence limitations](docs/SOURCE_COVERAGE.md).
+- No Figma connection or remote MCP deployment is performed.
 
 ---
-
 # AH Design v2.6 — Interactive Mock Data Demo
 
 A standalone UX/UI demonstration built **only** from the user-supplied `AH_DESIGN_v2.6(2).zip` (source: `AH_DESIGN_v2.6.md`). No legacy design-system components are imported.

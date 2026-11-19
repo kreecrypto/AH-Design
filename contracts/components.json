@@ -260,7 +260,19 @@
         16,
         20,
         24
-      ]
+      ],
+      "allPreviouslyAuditedHeightsPx": [
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        24,
+        28
+      ],
+      "coverage": "Previously documented Desktop/Home skeleton heights only; other pages and breakpoints unverified; no live design-tool connection"
     }
   ]
 }

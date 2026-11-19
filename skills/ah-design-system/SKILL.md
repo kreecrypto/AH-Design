@@ -1,16 +1,15 @@
 ---
 name: ah-design-system
-description: Apply AH Design v2.6 tokens, accessible enterprise dashboard component contracts, scoped Desktop/Home geometry and privacy-safe skeleton rendering to HTML/React UI.
+description: Apply AH Design v2.6.1 canonical tokens, approved page/component contracts, privacy-safe skeletons, and accessible HTML/React patterns without external design-tool access.
 ---
 
 # AH Design System
 
-1. Read `design-system.json` and `AGENTS.md`.
-2. Read `contracts/policies.json` before showing any content. The default is privacy-safe-skeleton.
-3. Read `contracts/components.json`, `contracts/layouts.json` and `tokens/ah-tokens.json`.
-4. Confirm final detail in the canonical `docs/AH_DESIGN_v2.6.md`.
-5. Use `--ah-*` CSS variables and existing component contracts. Never use a parallel theme or infer real navigation/product data.
-6. For Desktop/Home only, use 1440px Figma-calibrated variants; do not propagate to Operational Listing.
-7. Respect known audit gaps, and validate using `npm run validate` and `npm test` in an authorized local clone.
+1. Read `design-system.json`, `AGENTS.md`, then canonical `docs/AH_DESIGN_v2.6.md`.
+2. Consult `contracts/policies.json` and `contracts/page-profiles.json`; choose page type and safe content mode first.
+3. Apply `contracts/components.json`, `contracts/layouts.json`, `tokens/ah-tokens.json`, honoring Section 9.7's precedence.
+4. Use DB web-first font policy and existing `--ah-*` tokens; do not invent new tokens, data, navigation, permissions or pixel values.
+5. Check keyboard, focus, contrast and 44px mobile effective targets.
+6. Validate semantic contract drift against `contracts/approved-baseline.json`. Run `npm run validate` and `npm test` for local changes.
 
-This skill is an instruction layer, not a permission bypass or public data API. See `docs/AI_INTEGRATION.md`.
+Known boundaries: Home-specific figures apply only to documented desktop scope; tablet/mobile pixel parity and other scenarios remain unverified. This skill provides instructions, not access permissions or an MCP deployment.

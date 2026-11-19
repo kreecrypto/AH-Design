@@ -2,7 +2,7 @@
 
 ```yaml
 version: 2.6
-revision: 2026-11-19-home-figma-alignment
+revision: 2026-11-19-ai-contract-hardening
 name: AI Design System
 purpose: Single source of truth for AI-generated AI Design HTML/React UI
 scope: Design rules + privacy-safe skeleton rendering rules
@@ -1479,7 +1479,9 @@ home-loading-skeleton:
   mode: loading-skeleton # never the default privacy-safe-skeleton
   placeholderFill: "var(--ah-home-loading-base)" # observed #d4d7dd
   pillRadius: "var(--ah-home-loading-pill-radius)" # 100px
-  measuredPlaceholderHeights: [28px, 18px, 10px]
+  measuredPlaceholderHeights: [28px, 18px, 10px] # representative primary examples, not exhaustive
+  otherPreviouslyAuditedHeights: [8px, 12px, 14px, 16px, 20px, 24px] # read from prior independent audit, not newly verified
+  coverageNote: "Home desktop loading only; not a global skeleton scale or mobile contract"
   measuredBannerBarWidths: [160px, 286px, 368px]
   navAndSectionChrome: "approved runtime-only; design-only mode must keep these neutral"
 ```
@@ -1487,6 +1489,24 @@ home-loading-skeleton:
 Home-specific typography maps to existing `metric-xl` (hero), `display-xl` (Home metric titles), `heading-lg` (section title) and `body-md` (sidebar); the 16/16 quick-menu caption is a **slot exception**, not a new global body scale.
 
 **Scope / responsive safeguards:** Values above were **observed only at the 1440px Desktop/Home Figma reference**. Implement using flex/grid and fluid main-pane sizing; for smaller screens follow Section 13 and QA each breakpoint. Do not scale or hardcode this 1440px geometry into mobile/tablet without their own measured reference. Preserve Section 5's privacy-safe placeholders when runtime content has not been explicitly approved. Never apply these Home cards/shadows/hero sections to operational or listing pages.
+
+## 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
+
+This subsection resolves collisions between generic operational defaults and the documented Desktop/Home page exception **using this repository's existing canonical contracts only**. No live Figma data, external design fetch or content inference is authorized.
+
+| Priority | Applies to | Canonical rule | Conflict resolution |
+|---|---|---|---|
+| 1 | All pages | Sections 4–5 and 20 data/content privacy boundary | Never override privacy with a screenshot, a component name or an illustrative demo. |
+| 2 | Home Desktop at 1440 reference | Section 9.6 Home component geometry, white main surface, #E2EFFF summary cards, 292px search and 16/24 navigation label when approved runtime chrome exists | **Overrides** generic operational card/search/navigation defaults only inside the explicit Home scope. |
+| 3 | Operational/listing pages | Sections 2, 3, 6, 8, 9.1–9.3, 11 | Use #F0F6FF main background, white operational cards, 370px operational search and calibrated table density. Never inherit Home hero or Home support widgets. |
+| 4 | Tablet/mobile or missing page contract | Section 13 responsive behavior plus nearest documented shared token | Do not transfer Desktop/Home pixel measurements to smaller screens, claim parity, or invent page-specific components. |
+
+Rules for AI adapters and machine-readable exports:
+
+- Select the **page type** before applying geometry, surface, typography or loading mode. An unqualified global "standard card" statement means the operational/listing default, not a command to erase the Home variant.
+- Design-only output remains `privacy-safe-skeleton` even on Home; `loading-skeleton` is reserved for approved runtime chrome and content boundaries.
+- Section 9.6 loading placeholder heights are representative/reference observations from an earlier independent audit; do not treat any list as a universal sizing scale, and do not claim unverified tablet/mobile visual parity.
+- The machine-readable `contracts/page-profiles.json` and `contracts/approved-baseline.json` are QA/index artifacts; Section 9.6 and this precedence table remain the canonical authority.
 
 -----
 
@@ -2062,7 +2082,7 @@ Preserve:
 
 - Prioritize visual conformity to this Design System over generic dashboard conventions.
 - Preserve calibrated density before adding whitespace.
-- Standard cards are white on the light-blue app background.
+- Standard **operational/listing** cards are white on the light-blue app background. **Desktop/Home** uses the scoped surface rules in Section 9.6.
 - Primary blue is used deliberately for title/selection/action/link emphasis.
 - The primary-to-indigo gradient is reserved for the documented accent summary-card variant. Home uses its separately documented solid hero fill (`--ah-home-hero-bg`); do not turn it into a generic page gradient.
 
@@ -2178,7 +2198,7 @@ Apply this DESIGN silently. In design-only/mockup mode every generated page must
 - Search, filter, button, tab, badge, chart, form, and table content are skeletonized.
 - Standard desktop control shell = 40px unless a documented compact variant applies.
 - Standard operational card radius = 16px.
-- Standard cards are white on `#f0f6ff` app background.
+- Standard **operational/listing** cards are white on `#f0f6ff` app background; **Home** follows Section 9.6 (white canvas and scoped soft-blue summary cards).
 - Accent summary gradient is allowed only on the documented accent-card variant; its content is still skeletonized.
 - Enterprise table header = 44px with `#f0f6ff` background.
 - Enterprise table row = 44px compact or 48px comfortable.
@@ -2188,7 +2208,7 @@ Apply this DESIGN silently. In design-only/mockup mode every generated page must
 - No real or invented product/business/customer/navigation/role/permission data exists anywhere in source or rendered UI.
 - Use generic structural names only; no protected meaning in DOM attributes, comments, scripts, or icon names.
 - Home-only sections do not auto-inherit into operational pages.
-- Keep density operational and compact; do not introduce marketing-style whitespace or hero typography.
+- Keep **operational/listing** density compact and avoid marketing-style whitespace or hero typography there. The approved Home-only hero remains governed by Section 9.6.
 
 -----
 

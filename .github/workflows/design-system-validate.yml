@@ -5,15 +5,22 @@ on:
   pull_request:
 permissions:
   contents: read
+concurrency:
+  group: ah-design-validation-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      # Registry access is needed for the official MCP v2 SDK. No Figma or design-tool connection.
+      - run: npm install --ignore-scripts --no-audit --no-fund
       - run: npm run tokens:check
       - run: npm run validate
       - run: npm test
+      - run: node --check integrations/mcp/server-v2.mjs
       - run: node --check integrations/mcp/server.mjs

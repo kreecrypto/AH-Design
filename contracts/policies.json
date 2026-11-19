@@ -30,8 +30,28 @@
     "Figma designs never authorize copying business/customer data"
   ],
   "knownGaps": [
-    "Global default wording versus Home-specific surface requires explicit scoping",
-    "Home skeleton documentation lists selected example heights, not every observed height",
+    "Home skeleton observations are Desktop-only and are not a universal token scale",
     "Other Figma scenarios and mobile/tablet remain unverified"
-  ]
+  ],
+  "precedenceSource": "docs/AH_DESIGN_v2.6.md §9.7",
+  "pagePrecedence": {
+    "priority": [
+      "privacy-boundary",
+      "explicit-page-variant",
+      "operational-default",
+      "responsive-no-invention"
+    ],
+    "home": {
+      "mainSurface": "var(--ah-canvas)",
+      "summarySurface": "var(--ah-primary-soft)",
+      "searchWidthPx": 292,
+      "sidebarLabelPx": 16
+    },
+    "operational": {
+      "mainSurface": "var(--ah-app-bg)",
+      "cardSurface": "var(--ah-canvas)",
+      "searchWidthPx": 370,
+      "sidebarLabelPx": 20
+    }
+  }
 }
