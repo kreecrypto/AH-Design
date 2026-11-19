@@ -2,6 +2,10 @@
 
 ## 2.6.1-ai-contract-hardening — 2026-11-19
 
+- Published single-brand root `DESIGN.md` and `design-md/ah-design/DESIGN.md` mirrors, plus a self-contained token/component preview and quick-start README inspired by the drop-in DESIGN.md distribution pattern.
+- Added mirror sync/check CI and README/preview regression checks; fixed the privacy-mutation test error message and enabled manual `workflow_dispatch`.
+
+
 - Scoped Global Operational card/hero rules against the already documented Home contract (§9.7); no live Figma access.
 - Added `contracts/page-profiles.json`, `contracts/approved-baseline.json` and JSON Schema subset for AI governance.
 - Added full nested Contract Drift detection, 19 anchored source-to-contract checks and mutation tests; removed hard-coded component/token counts from validator.

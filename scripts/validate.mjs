@@ -66,7 +66,7 @@ export async function validate() {
   assert.equal(tokens.tokenCount, Object.keys(tokens.tokens).length);
   assert.equal(manifest.defaultContentMode, 'privacy-safe-skeleton');
   assert.equal(policies.defaultMode, 'privacy-safe-skeleton');
-  assert.equal(policies.modes['privacy-safe-skeleton'].readableBusinessData, false);
+  assert.equal(policies.modes['privacy-safe-skeleton'].readableBusinessData, false, 'readableBusinessData must remain false');
   assert.equal(policies.modes['privacy-safe-skeleton'].readableNavigation, false);
   assert.ok(changelog.includes(baseline.release), 'Approved baseline release must have CHANGELOG entry');
 

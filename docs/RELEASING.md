@@ -6,7 +6,7 @@
 2. Update canonical Markdown first when changing approved design values. Do not use an undocumented external design reference to fill gaps.
 3. Update `contracts/components.json`, `contracts/layouts.json`, `contracts/policies.json`, `contracts/page-profiles.json` and the deliberate approved snapshot in `contracts/approved-baseline.json` and canonical evidence in `contracts/source-anchors.json`. Each field is compared recursively and key fields are checked against original Design.md excerpts; baseline changes require a reviewer and changelog entry.
 4. If the canonical source changes, update source SHA in `design-system.json`, `tokens/ah-tokens.json` (via `npm run tokens:sync`), and `contracts/approved-baseline.json`.
-5. Run `npm install`, `npm run tokens:check`, `npm run validate`, `npm test`. Test includes the mutation guard and official SDK MCP legacy/modern negotiation.
+5. Run `npm install`, `npm run design:check`, `npm run tokens:check`, `npm run validate`, `npm test`. The two DESIGN.md distribution mirrors must be byte-for-byte identical to canonical Markdown. Test includes the mutation guard and official SDK MCP legacy/modern negotiation.
 6. Confirm GitHub Actions `AH Design System validation` conclusion `success` on the release commit. **No success means do not mark production ready.**
 7. Configure branch protection manually in repository Settings → Branches or Rulesets to require this check and one approving review. **A workflow or CODEOWNERS file alone does not enforce branch protection**; API settings were not modified here.
 8. Record the commit SHA, workflow run URL, deployed client versions (if any) and known limitations in release notes.

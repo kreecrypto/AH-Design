@@ -21,3 +21,11 @@
 - MCP tools only read explicitly allowed local design assets. Do not create a public endpoint or request credentials.
 
 See `docs/AI_INTEGRATION.md` and `docs/RELEASING.md`.
+
+## Drop-in DESIGN.md distribution
+
+The project root `DESIGN.md` and `design-md/ah-design/DESIGN.md` are **exact mirrors** of the canonical `docs/AH_DESIGN_v2.6.md`. This is the only distributed design language. Agents working in a consumer project may read the root `DESIGN.md` directly; in this repository the canonical `docs/` source controls any update.
+
+The visual-only `preview.html` and `design-md/ah-design/preview.html` are a single AH design reference catalog with anonymous specimens. They are not product mockups and do not grant permission to invent user data.
+
+After changing the canonical Design.md by approved review, run `npm run design:sync` and `npm run design:check`. The CI enforces byte-identical mirrors and includes the privacy-safe default. Keep the repository private unless the owner explicitly chooses otherwise. No Figma connection is required.

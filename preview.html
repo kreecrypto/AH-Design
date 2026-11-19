@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="AH Design v2.6 — a single, AI-readable enterprise design system. Canonical token and component specimen catalog.">
+  <title>AH Design · DESIGN.md Preview</title>
+  <style>
+/* Canonical variables copied verbatim from docs/AH_DESIGN_v2.6.md §2.2.
+   This preview is documentation only, not a production screen or second design source. */
+:root {
+  /* Colors */
+  --ah-primary: #00008f;
+  --ah-primary-deep: #00006f;
+  --ah-primary-dark: #000056;
+  --ah-primary-soft: #e2efff;
+  --ah-primary-gradient-end: #4658fc;
+  --ah-home-hero-bg: #5257f5; /* calibrated Desktop/Home only */
+  --ah-home-loading-base: #d4d7dd; /* runtime Home loading only */
+
+  --ah-canvas: #ffffff;
+  --ah-app-bg: #f0f6ff;
+  --ah-surface-muted: #f7f7f8;
+
+  --ah-ink-deep: #1a1d21;
+  --ah-ink: #434956;
+  --ah-slate: #606776;
+  --ah-placeholder: #b2b2b2;
+  --ah-disabled: #bfc3c9;
+
+  --ah-hairline: #e5e5e5;
+  --ah-hairline-soft: #eceded;
+  --ah-field-border: #cccccc;
+  --ah-neutral-border: #8c93a1;
+
+  --ah-success: #17663a;
+  --ah-warning: #f2a918;
+  --ah-critical: #e3000a;
+  --ah-on-primary: #ffffff;
+
+  /* Badge palette observed in production patterns */
+  --ah-badge-coral: #ffb4ce;
+  --ah-badge-blue: #74bde8;
+  --ah-badge-sunshine: #ffff00;
+  --ah-badge-teal: #0f717f;
+  --ah-badge-success-bg: #dff8ea;
+  --ah-badge-success-ink: #0f4527;
+  --ah-badge-cyan-bg: #dbf7fb;
+
+  /* Layout dimensions */
+  --ah-reference-desktop-width: 1280px;
+  --ah-sidebar-width: 200px;
+  --ah-main-pane-reference-width: 1080px;
+  --ah-main-pane-width: calc(100vw - var(--ah-sidebar-width));
+  --ah-content-gutter: 16px;
+  --ah-topbar-height: 64px;
+  --ah-search-width: 370px; /* operational default */
+  --ah-home-search-width: 292px;
+  --ah-home-search-input-width: 200px;
+  --ah-home-search-gap: 12px;
+  --ah-search-height: 40px;
+  --ah-sidebar-item-height: 32px;
+  --ah-home-sidebar-label-size: 16px;
+  --ah-home-sidebar-label-line-height: 24px;
+  --ah-table-header-height: 44px;
+  --ah-table-row-height: 44px;
+  --ah-table-row-height-comfortable: 48px;
+  --ah-tab-height: 40px;
+  --ah-button-md-height: 40px;
+  --ah-badge-height: 20px;
+  --ah-side-panel-width: 320px;
+
+  /* Radius */
+  --ah-radius-xs: 4px;
+  --ah-radius-sm: 8px;
+  --ah-radius-md: 12px;
+  --ah-radius-lg: 16px;
+  --ah-radius-full: 100px;
+  --ah-home-loading-pill-radius: var(--ah-radius-full);
+  --ah-radius-pill: 100px;   /* alias */
+  --ah-radius-chip: 999px;
+  --ah-radius-rail: 1000px;
+  --ah-radius-circle: 9999px;
+
+  /* Numeric spacing scale */
+  --ah-space-4: 4px;
+  --ah-space-8: 8px;
+  --ah-space-10: 10px;
+  --ah-space-12: 12px;
+  --ah-space-16: 16px;
+  --ah-space-20: 20px;
+  --ah-space-24: 24px;
+  --ah-space-32: 32px;
+
+  /* Legacy semantic aliases */
+  --ah-space-xs: var(--ah-space-8);
+  --ah-space-sm: var(--ah-space-12);
+  --ah-space-md: var(--ah-space-16);
+  --ah-space-lg: var(--ah-space-24);
+  --ah-space-xl: var(--ah-space-32);
+
+  /* Shadows */
+  --ah-shadow-card: 0px 4px 8px rgba(150,167,214,0.15);
+  --ah-home-right-card-shadow: 0px 4px 20px rgba(0,0,0,0.10);
+  --ah-shadow-none: none;
+}
+* { box-sizing: border-box }
+html { scroll-behavior: smooth }
+body { margin: 0; color: var(--ah-ink-deep); background: var(--ah-app-bg); font-family: "DB Helvethaica X","DB Helvethaica X 55 Regular","Noto Sans Thai",Arial,sans-serif; -webkit-font-smoothing: antialiased }
+a { color: var(--ah-primary); text-underline-offset: 3px }
+a:focus-visible { outline: 3px solid var(--ah-primary); outline-offset: 4px; border-radius: 4px }
+.shell { display: flex; min-height: 100vh }
+.sidebar { width: 200px; flex: 0 0 200px; background: var(--ah-canvas); min-height: 100vh; border-right: 1px solid #e3e7ee; position: sticky; top: 0; align-self: flex-start; }
+.brand { min-height: 80px; display: flex; align-items: center; gap: 10px; padding: 16px; border-bottom: 1px solid #e9edf3 }
+.brand-mark { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 10px; background: var(--ah-primary); color: white; font-size: 15px; letter-spacing: -.06em; font-weight: 800 }
+.brand-title { display: block; font-size: 18px; line-height: 1.3; font-weight: 800; color: var(--ah-primary) }
+.brand-sub { display: block; font-size: 11px; color: #637083; line-height: 1.3; margin-top: 2px }
+.side-label { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: #8290a0; margin: 22px 16px 10px; font-weight: 700 }
+.sidebar nav a { display: flex; align-items: center; min-height: 40px; margin: 3px 8px; padding: 7px 13px; gap: 10px; border-radius: 9px; font-size: 14px; text-decoration: none; font-weight: 600; color: #566171 }
+.sidebar nav a:hover, .sidebar nav a:focus-visible { background: #f0f6ff; color: var(--ah-primary) }
+.sidebar nav a.active { background: #e2efff; color: var(--ah-primary) }
+.nav-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #9dacbf }
+.sidebar nav a.active .nav-dot { background: var(--ah-primary) }
+.side-footer { color: #8793a2; font-size: 11px; line-height: 1.6; padding: 24px 16px; margin-top: 24px; border-top: 1px solid #edf0f5 }
+.content { min-width: 0; flex: 1 }
+.topbar { min-height: 64px; background: var(--ah-canvas); border-bottom: 1px solid #e4ebf4; padding: 12px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px }
+.crumb { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: #778292 }
+.crumb strong { color: var(--ah-ink-deep); font-weight: 700 }
+.meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap }
+.pill { display: inline-flex; align-items: center; border-radius: var(--ah-radius-full); padding: 7px 13px; background: #eef4ff; color: var(--ah-primary); font-size: 11px; font-weight: 700 }
+.pill-outline { border: 1px solid #cdd8eb; background: white; color: #57677d }
+main { max-width: 1400px; padding: 28px 32px 80px; margin: 0 auto }
+.eyebrow { color: var(--ah-primary); font-size: 11px; letter-spacing: .13em; text-transform: uppercase; font-weight: 800 }
+.hero { display: grid; grid-template-columns: minmax(0,1.2fr) minmax(260px,.8fr); align-items: center; gap: 24px; border-radius: 16px; padding: 36px 40px; background: var(--ah-canvas); border: 1px solid #e6edf6; box-shadow: 0 10px 35px rgba(0,0,80,.04) }
+.hero h1 { margin: 10px 0 8px; color: var(--ah-primary); font-size: clamp(30px,3.5vw,48px); letter-spacing: -.035em; line-height: 1.1 }
+.hero p { max-width: 56ch; margin: 0; color: #526072; font-size: 16px; line-height: 1.6 }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px }
+.doc-link { text-decoration: none; color: var(--ah-primary); background: #e2efff; border-radius: 100px; min-height: 40px; padding: 10px 16px; font-size: 12px; font-weight: 750 }
+.doc-link.primary { background: var(--ah-primary); color: white }
+.hero-art { display: flex; flex-direction: column; gap: 10px; padding: 18px; border-radius: 12px; background: #f6f9ff; border: 1px solid #e2ecfb }
+.art-top { display: flex; gap: 6px; align-items: center; margin-bottom: 8px }
+.art-dot { width: 7px; height: 7px; border-radius: 50%; background: #bcc8de }
+.art-top span:last-child { flex: 1; text-align: right; color: #7688a5; font: 11px ui-monospace,monospace }
+.art-code { color: #45597b; font: 12px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis }
+.art-code em { color: #22349b; font-style: normal; font-weight: 700 }
+.art-code strong { color: #2e7654; font-weight: 600 }
+.section { scroll-margin-top: 18px; margin-top: 35px }
+.sec-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 14px }
+.sec-head h2 { margin: 0; font-size: 24px; letter-spacing: -.018em }
+.sec-head p { margin: 0; font-size: 12px; color: #768293 }
+.card { border-radius: 12px; background: var(--ah-canvas); border: 1px solid #e5ecf5 }
+.colors { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 12px }
+.swatch { border-radius: 12px; overflow: hidden; background: white; border: 1px solid #e5ebf3 }
+.swatch-color { height: 104px }
+.swatch-meta { padding: 13px 12px }
+.swatch-name { color: #2f4053; font-size: 12px; font-weight: 750; overflow-wrap: anywhere }
+.swatch-value { font: 11px/1.5 ui-monospace,monospace; color: #8090a0; margin-top: 3px }
+.panels { display: grid; grid-template-columns: minmax(0,.86fr) minmax(0,1.14fr); gap: 14px }
+.panel { padding: 24px }
+.panel h3 { font-size: 15px; margin: 0 0 15px }
+.type-sample { display: grid; grid-template-columns: 85px minmax(0,1fr); gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid #edf2f8 }
+.type-sample:last-child { border-bottom: 0 }
+.type-label { font: 11px ui-monospace,monospace; color: #8490a0 }
+.type-disp { font-size: 40px; line-height: 1.1; font-weight: 700; color: #263079 }
+.type-heading { font-size: 24px; line-height: 30px; font-weight: 700 }
+.type-body { font-size: 20px; line-height: 28px }
+.type-caption { font-size: 14px; line-height: 20px; color: #667487 }
+.metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 12px }
+.metric { min-width: 0; background: #f2f7ff; border: 1px solid #e3ecfb; padding: 16px 12px; border-radius: 9px }
+.metric strong { display: block; color: var(--ah-primary); font-size: 24px; letter-spacing: -.025em }
+.metric span { font-size: 11px; color: #6a7690; white-space: nowrap }
+.controls { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 23px }
+.ex-btn { min-height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 9px 16px; background: var(--ah-primary); color: white; border: 0; border-radius: var(--ah-radius-full); font-size: 12px; font-weight: 700 }
+.ex-btn.secondary { color: var(--ah-primary); background: var(--ah-primary-soft) }
+.ex-btn.ghost { color: var(--ah-ink); background: white; border: 1px solid var(--ah-field-border) }
+.ex-btn.disabled { opacity: .45 }
+.control-meta { display: block; font-size: 11px; font-weight: 700; color: #7d8a9d; margin-bottom: 10px }
+.input-shape { height: 40px; max-width: 350px; border-radius: 9px; background: #fff; border: 1px solid #ccd6e5; display: flex; align-items: center; padding: 0 13px; gap: 10px; color: #69798e; font-size: 12px }
+.input-shape span { display: inline-block; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #8796a9; position: relative; }
+.input-shape span:after { content: ""; width: 6px; height: 2px; background: #8796a9; position: absolute; top: 10px; left: 9px; transform: rotate(47deg) }
+.inline-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px }
+.tag-shape { display: inline-flex; min-height: 30px; padding: 6px 12px; align-items: center; background: #eef4ff; color: #1b3386; border-radius: 100px; font-size: 11px; font-weight: 650 }
+.tag-shape.muted { background: #f2f4f7; color: #6c7887 }
+.layout-figure { border-radius: 10px; border: 1px solid #dbe5f2; display: flex; min-height: 238px; overflow: hidden; background: #f0f6ff }
+.figure-sidebar { flex: 0 0 200px; width: 200px; background: white; padding: 16px 13px; border-right: 1px solid #e7ebf2 }
+.figure-sidebar .figure-logo { height: 17px; width: 76px; background: #00008f; border-radius: 4px; margin-bottom: 22px }
+.figure-sidebar .stub { height: 11px; margin: 14px 0; border-radius: 4px; background: #f0f3f7 }
+.figure-sidebar .stub.w1 { width: 70% }.figure-sidebar .stub.w2 { width: 52% }.figure-sidebar .stub.w3 { width: 84% }
+.figure-main { flex: 1; min-width: 0 }
+.figure-top { height: 64px; background: white; border-bottom: 1px solid #e8edf6; display: flex; align-items: center; justify-content: space-between; padding: 0 16px }
+.figure-top .stub { width: 120px; height: 12px; background: #eef1f6; border-radius: 100px }
+.figure-search { width: min(200px,43%); height: 34px; border: 1px solid #e3e8f0; border-radius: 8px; background: white }
+.figure-body { padding: 16px }
+.figure-blocks { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; margin-bottom: 12px }
+.figure-box { background: #fff; border-radius: 8px; padding: 16px; min-height: 70px }
+.skeleton { display: block; width: 100%; height: 10px; border-radius: 6px; background: var(--ah-surface-muted) }
+.skeleton.sm { width: 43% }.skeleton.med { width: 70% }.skeleton.lg { width: 91% }
+.skeleton.pill { height: 22px; border-radius: 100px }
+.figure-box .skeleton:not(:last-child) { margin-bottom: 11px }
+.table-shell { border-radius: 12px; border: 1px solid #e1e9f3; overflow-x: auto; background: white }
+.table-min { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 11px; table-layout: fixed }
+.table-min th { height: 44px; background: #f0f6ff; padding: 10px 16px; border-bottom: 1px solid #e5eaf1; font-weight: 700; text-align: left; color: #657087 }
+.table-min td { height: 44px; padding: 10px 16px; border-top: 1px solid #eef1f5 }
+.table-min .stub { height: 10px; max-width: 120px; background: #f0f3f7; border-radius: 6px }
+.table-min .stub.short { width: 40% }.table-min .stub.mid { width: 72% }
+.state-cols { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px }
+.state { padding: 18px; }
+.state-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px }
+.state-head strong { font-size: 13px }
+.state-head span { font-size: 10px; color: #6a7890 }
+.state-canvas { padding: 18px; border-radius: 8px; background: #f0f6ff; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px }
+.state-canvas .box { background: white; border-radius: 8px; padding: 15px; }
+.state-canvas .bar { height: 12px; border-radius: 6px; background: #f7f7f8; margin: 8px 0 }
+.state-canvas .bar:nth-child(2) { width: 67% }
+.state-canvas.runtime { background: white }
+.state-canvas.runtime .bar { background: #d4d7dd; border-radius: 100px }
+.note { border-left: 3px solid var(--ah-primary); background: #eaf2ff; border-radius: 0 8px 8px 0; padding: 14px 17px; font-size: 12px; line-height: 1.6; color: #33415a }
+.footer { margin-top: 30px; padding-top: 22px; border-top: 1px solid #dce5f1; color: #738095; font-size: 11px; display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap }
+.footer a { font-weight: 700 }
+@media(max-width:1250px){.colors{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1020px){.panels{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.hero-art{max-width:600px}}
+@media(max-width:780px){.sidebar{display:none}.topbar{padding:12px 20px}main{padding:20px 16px 70px}.hero{padding:27px 24px}.state-cols{grid-template-columns:1fr}.figure-sidebar{flex-basis:72px;width:72px}.figure-sidebar .figure-logo{width:39px}.figure-sidebar .stub{width:42px!important}}
+@media(max-width:480px){.colors{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-art{display:none}.sec-head{align-items:flex-start;flex-direction:column;gap:4px}.metric strong{font-size:20px}.metrics{gap:6px}.metric{padding:11px 8px}.metric span{font-size:10px}.topbar .pill-outline{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar" aria-label="Design reference sections">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">AH</span><span><span class="brand-title">AH Design</span><span class="brand-sub">Design language / v2.6</span></span></div>
+    <div class="side-label">Reference catalog</div>
+    <nav aria-label="Page sections">
+      <a class="active" href="#overview"><span class="nav-dot"></span>Overview</a>
+      <a href="#colors"><span class="nav-dot"></span>Color tokens</a>
+      <a href="#type"><span class="nav-dot"></span>Typography</a>
+      <a href="#components"><span class="nav-dot"></span>Components</a>
+      <a href="#layout"><span class="nav-dot"></span>App shell</a>
+      <a href="#table"><span class="nav-dot"></span>Data table</a>
+      <a href="#privacy"><span class="nav-dot"></span>Skeleton modes</a>
+    </nav>
+    <div class="side-footer">One design system only.<br>All visual values come from the canonical AH Design v2.6 specification.</div>
+  </aside>
+  <div class="content">
+    <header class="topbar"><span class="crumb">AH / <strong>DESIGN.md</strong> / Visual catalog</span><div class="meta"><span class="pill">v2.6</span><span class="pill pill-outline">Privacy-safe</span></div></header>
+    <main>
+      <section id="overview" class="hero" aria-labelledby="hero-title">
+        <div><div class="eyebrow">AH Design · Single source of truth</div><h1 id="hero-title">One system.<br>Every interface.</h1><p>Canonical colors, type, enterprise components and page-specific rules — packaged as a single <strong>DESIGN.md</strong> for coding agents. This is a visual reference, not a product mockup.</p><div class="hero-actions"><a class="doc-link primary" href="DESIGN.md">Read DESIGN.md</a><a class="doc-link" href="README.md">Usage guide</a></div></div>
+        <div class="hero-art" aria-label="Excerpt of documented AH Design tokens">
+          <div class="art-top"><i class="art-dot"></i><i class="art-dot"></i><i class="art-dot"></i><span>tokens / canonical</span></div>
+          <div class="art-code"><em>--ah-primary:</em> <strong>#00008f;</strong></div>
+          <div class="art-code"><em>--ah-app-bg:</em> <strong>#f0f6ff;</strong></div>
+          <div class="art-code"><em>--ah-sidebar-width:</em> <strong>200px;</strong></div>
+          <div class="art-code"><em>--ah-table-row-height:</em> <strong>44px;</strong></div>
+          <div class="art-code"><em>content.mode:</em> <strong>privacy-safe-skeleton</strong></div>
+        </div>
+      </section>
+      <section id="colors" class="section" aria-labelledby="colors-title">
+        <div class="sec-head"><h2 id="colors-title">Color tokens</h2><p>Canonical palette · no invented variants</p></div>
+        <div class="colors">
+          <div class="swatch"><div class="swatch-color" style="background:#00008f"></div><div class="swatch-meta"><div class="swatch-name">Primary</div><div class="swatch-value">#00008F</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#00006f"></div><div class="swatch-meta"><div class="swatch-name">Primary deep</div><div class="swatch-value">#00006F</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#e2efff"></div><div class="swatch-meta"><div class="swatch-name">Primary soft</div><div class="swatch-value">#E2EFFF</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#f0f6ff"></div><div class="swatch-meta"><div class="swatch-name">App background</div><div class="swatch-value">#F0F6FF</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#ffffff;border-bottom:1px solid #eff1f5"></div><div class="swatch-meta"><div class="swatch-name">Canvas</div><div class="swatch-value">#FFFFFF</div></div></div>
+          <div class="swatch"><div class="swatch-color" style="background:#1a1d21"></div><div class="swatch-meta"><div class="swatch-name">Ink deep</div><div class="swatch-value">#1A1D21</div></div></div>
+        </div>
+      </section>
+      <section id="type" class="section" aria-labelledby="type-title">
+        <div class="sec-head"><h2 id="type-title">Typography & rhythm</h2><p>DB Helvethaica X · web-first; fallback when licensed files are unavailable</p></div>
+        <div class="panels">
+          <div class="card panel">
+            <h3>Type hierarchy</h3>
+            <div class="type-sample"><span class="type-label">40 / 46</span><span class="type-disp">Display XL</span></div>
+            <div class="type-sample"><span class="type-label">24 / 30</span><span class="type-heading">Section heading</span></div>
+            <div class="type-sample"><span class="type-label">20 / 28</span><span class="type-body">Body specimen</span></div>
+            <div class="type-sample"><span class="type-label">14 / 20</span><span class="type-caption">Caption / documentation specimen</span></div>
+          </div>
+          <div class="card panel">
+            <h3>Reference measurements</h3>
+            <div class="metrics">
+              <div class="metric"><strong>200<span>px</span></strong><span>Sidebar</span></div>
+              <div class="metric"><strong>64<span>px</span></strong><span>Topbar</span></div>
+              <div class="metric"><strong>16<span>px</span></strong><span>Gutter</span></div>
+              <div class="metric"><strong>40<span>px</span></strong><span>Control</span></div>
+              <div class="metric"><strong>44<span>px</span></strong><span>Compact row</span></div>
+              <div class="metric"><strong>48<span>px</span></strong><span>Comfortable row</span></div>
+            </div>
+            <p style="font-size:12px;color:#637186;line-height:1.6;margin:17px 0 0">Reference viewport for the operational shell: <strong>1280px</strong>. Home-specific measurements have a separate documented 1440px scope.</p>
+          </div>
+        </div>
+      </section>
+      <section id="components" class="section" aria-labelledby="components-title">
+        <div class="sec-head"><h2 id="components-title">Component styling</h2><p>Examples of shape and geometry only</p></div>
+        <div class="panels">
+          <div class="card panel">
+            <h3>Buttons</h3><div class="control-meta">40px standard height · full-pill radius</div>
+            <div class="controls"><span class="ex-btn">Primary</span><span class="ex-btn secondary">Secondary</span><span class="ex-btn ghost">Ghost</span><span class="ex-btn disabled">Disabled</span></div>
+            <h3>Chips & badges</h3>
+            <div class="inline-tags"><span class="tag-shape">Selection</span><span class="tag-shape muted">Neutral</span><span class="tag-shape">Token reference</span></div>
+          </div>
+          <div class="card panel">
+            <h3>Fields</h3><div class="control-meta">40px single-line field · anonymous specimen</div>
+            <div class="input-shape" aria-label="Non-interactive input specimen"><span aria-hidden="true"></span>Field specimen</div>
+            <div style="margin-top:20px"><h3>Card surface</h3><div class="control-meta">White card on light-blue operational canvas</div><div style="background:#f0f6ff;border-radius:10px;padding:14px"><div style="background:white;border:1px solid #e7ebf3;padding:13px;border-radius:12px"><i class="skeleton lg"></i><i class="skeleton med" style="margin-top:11px"></i></div></div></div>
+          </div>
+        </div>
+      </section>
+      <section id="layout" class="section" aria-labelledby="layout-title">
+        <div class="sec-head"><h2 id="layout-title">Desktop app shell</h2><p>1280px reference geometry · privacy-safe placeholders</p></div>
+        <div class="layout-figure" role="img" aria-label="App shell diagram showing 200 pixel sidebar, 64 pixel topbar and a fluid content area with neutral skeletal cards">
+          <div class="figure-sidebar"><div class="figure-logo"></div><div class="stub w1"></div><div class="stub w2"></div><div class="stub w3"></div><div class="stub w1"></div></div>
+          <div class="figure-main"><div class="figure-top"><div class="stub"></div><div class="figure-search"></div></div><div class="figure-body"><div class="figure-blocks"><div class="figure-box"><i class="skeleton sm"></i><i class="skeleton lg"></i></div><div class="figure-box"><i class="skeleton med"></i><i class="skeleton lg"></i></div><div class="figure-box"><i class="skeleton sm"></i><i class="skeleton lg"></i></div></div><div class="figure-box"><i class="skeleton med"></i><i class="skeleton lg" style="margin-top:17px"></i></div></div></div>
+        </div>
+      </section>
+      <section id="table" class="section" aria-labelledby="table-title">
+        <div class="sec-head"><h2 id="table-title">Enterprise data table</h2><p>44px header · 44px compact row · anonymous cells</p></div>
+        <div class="table-shell"><table class="table-min" aria-label="Data table style specimen without business data">
+          <thead><tr><th scope="col">Column A</th><th scope="col">Column B</th><th scope="col">Column C</th><th scope="col">Column D</th></tr></thead>
+          <tbody><tr><td><div class="stub mid"></div></td><td><div class="stub short"></div></td><td><div class="stub mid"></div></td><td><div class="stub short"></div></td></tr>
+          <tr><td><div class="stub mid"></div></td><td><div class="stub mid"></div></td><td><div class="stub short"></div></td><td><div class="stub mid"></div></td></tr>
+          <tr><td><div class="stub short"></div></td><td><div class="stub mid"></div></td><td><div class="stub mid"></div></td><td><div class="stub short"></div></td></tr></tbody>
+        </table></div>
+      </section>
+      <section id="privacy" class="section" aria-labelledby="privacy-title">
+        <div class="sec-head"><h2 id="privacy-title">Skeleton content modes</h2><p>Two distinct content permissions · no real data</p></div>
+        <div class="state-cols">
+          <div class="card state"><div class="state-head"><strong>Privacy-safe skeleton</strong><span>Default / design-only</span></div><div class="state-canvas"><div class="box"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div class="box"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div></div>
+          <div class="card state"><div class="state-head"><strong>Home runtime loading</strong><span>Approved runtime chrome only</span></div><div class="state-canvas runtime"><div class="box"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div><div class="box"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div></div></div>
+        </div>
+        <div class="note" style="margin-top:14px"><strong>Do not invent content.</strong> A documented Home component does not authorize business text or a readable menu in design-only output. Use privacy-safe shapes unless approved display-safe runtime chrome is explicitly supplied. This catalog contains no real routes, account data, financial values, statuses or client names.</div>
+      </section>
+      <div class="footer"><span>AH Design · one design system · canonical DESIGN.md</span><span><a href="DESIGN.md">Design contract</a> · <a href="README.md">Usage</a></span></div>
+    </main>
+  </div>
+</div>
+</body>
+</html>

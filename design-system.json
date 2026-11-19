@@ -23,7 +23,11 @@
     "approvedBaseline": "contracts/approved-baseline.json",
     "schema": "schemas/contracts.schema.json",
     "releaseGuide": "docs/RELEASING.md",
-    "sourceAnchors": "contracts/source-anchors.json"
+    "sourceAnchors": "contracts/source-anchors.json",
+    "designMd": "DESIGN.md",
+    "oneDesignEntry": "design-md/ah-design/DESIGN.md",
+    "visualPreview": "preview.html",
+    "designDistribution": "docs/DESIGN_MD_DISTRIBUTION.md"
   },
   "defaultContentMode": "privacy-safe-skeleton",
   "limitations": [

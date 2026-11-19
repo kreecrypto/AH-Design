@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 concurrency:
@@ -19,6 +20,7 @@ jobs:
           node-version: '22'
       # Registry access is needed for the official MCP v2 SDK. No Figma or design-tool connection.
       - run: npm install --ignore-scripts --no-audit --no-fund
+      - run: npm run design:check
       - run: npm run tokens:check
       - run: npm run validate
       - run: npm test
