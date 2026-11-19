@@ -1,43 +1,34 @@
-# AH DESIGN.md
+# AH Design
 
-**One design system for AI-generated enterprise interfaces.**
+**One Design System. One `DESIGN.md`. Ready for AI.**
 
-AH Design is a self-contained, reusable `DESIGN.md` for AI coding agents. This repository includes **AH Design only** — no other brands or imported design systems.
+AH Design v2.6 is a standalone enterprise UI design system for AI coding agents. This repository contains **AH Design only**, with no Figma connection, backend, or additional design systems.
 
-**[Read DESIGN.md](DESIGN.md)** · [Visual preview](preview.html) · [Agent instructions](AGENTS.md)
+**[Read DESIGN.md](DESIGN.md)** · **[View preview](preview.html)**
 
-## Quick start
+## Use with AI
 
-1. Download [`DESIGN.md`](DESIGN.md) from this private repository (or clone it using your authorized GitHub access).
-2. Place the file at the root of the project where your AI agent will work.
-3. Ask your agent:
+1. Copy [`DESIGN.md`](DESIGN.md) into your project's root.
+2. Tell your AI coding agent:
 
 ```text
-Use DESIGN.md as the only design system for this project.
-Follow AH Design colors, typography, layout, components,
-responsive rules, and accessibility requirements.
-Default to privacy-safe skeletons. Do not invent business data,
-navigation routes, or design tokens.
+Use AH Design's DESIGN.md as the only design system.
+Follow its colors, typography, layout, components, states,
+responsive rules, accessibility, and page-specific contracts.
+Default to privacy-safe skeletons; do not invent business data,
+navigation labels, or design tokens.
 ```
 
-No setup, design-tool connection, or MCP server is required to use the single Markdown file.
+3. Review the resulting interface against the documented rules. For a data-filled demo, explicitly request fictional sample data.
 
-## AH Design at a glance
+## Files
 
-| Rule | Reference |
+| File | Purpose |
 |---|---|
-| Primary | `#00008F` |
-| Operational background | `#F0F6FF` |
-| Card surface | `#FFFFFF` |
-| Font | DB Helvethaica X web-first; documented fallback when licensed assets are unavailable |
-| Desktop app shell | 200px sidebar, fluid content, 16px gutters |
-| Enterprise table | 44px compact rows / 48px comfortable rows |
-| Design-only content | Privacy-safe skeleton by default |
+| [`DESIGN.md`](DESIGN.md) | Complete AH Design v2.6 specification — the single source for AI |
+| [`preview.html`](preview.html) | Standalone visual reference; download and open in a browser |
+| [`README.md`](README.md) | Quick-start instructions |
 
-**Source of truth:** [`docs/AH_DESIGN_v2.6.md`](docs/AH_DESIGN_v2.6.md). Both the root `DESIGN.md` and [`design-md/ah-design/DESIGN.md`](design-md/ah-design/DESIGN.md) are byte-identical, automatically checked copies. Home-specific rules apply only to their documented scope.
+**Privacy:** The design-only default is skeleton-only. No real business data or licensed font binaries are distributed. The repository remains **Private**.
 
-### Optional advanced integration
-
-For AI tools already connected to this private repository, [`AGENTS.md`](AGENTS.md) and [AI Integration](docs/AI_INTEGRATION.md) describe optional GitHub, token/contract and local read-only MCP workflows. You do not need them for the copy-and-use `DESIGN.md` workflow.
-
-The [preview](preview.html) is a static reference, not a production application. No Figma connection, real business data, or unlicensed font files are provided.
+The previous full development package (MCP, contracts, tests, history and docs) is preserved in the [archive branch](https://github.com/kreecrypto/AH-Design/tree/archive/full-ah-design-2026-11-19), not on `main`.
