@@ -14,6 +14,16 @@ A standalone UX/UI demonstration built **only** from the user-supplied `AH_DESIG
 - [UX/UI Audit](docs/UXUI_Audit.md)
 - [Fix All QA report](docs/QA_Report.md)
 
+## Figma Desktop/Home alignment (2026-11-19)
+
+The Design System document was corrected against the actual [VDO Agency Portal Desktop/Home Figma](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3093-148134):
+
+- [Updated Design System v2.6](docs/AH_DESIGN_v2.6.md) — adds Home-specific visual contracts while keeping operational tokens untouched.
+- [Baseline Audit](docs/Figma_Desktop_Home_Audit.md) — measurements and the five categories of issues.
+- [Fix All QA](docs/Figma_Desktop_Home_FixAll_QA.md) — **39/39** source-contract checks passed.
+
+This was a **documentation-contract fix**; existing Demo HTML is still the operational synthetic-data sample, not a pixel-exact Figma Home implementation. Figma file and other operational/listing screens were not modified.
+
 ## QA status
 
 Audit issues A01–A10 were addressed in the Fixed edition. Previous browser regression reported 51/51 automated checks passing at 9 viewport widths (320–1440 px). Manual screen-reader/device review and licensed DB font assets remain outstanding.
