@@ -52,7 +52,7 @@ export async function validate() {
     json(arg('--layouts') ?? 'contracts/layouts.json'),
     json(arg('--policies') ?? 'contracts/policies.json'),
     json(arg('--page-profiles') ?? 'contracts/page-profiles.json'),
-    json('contracts/approved-baseline.json'), json('schemas/contracts.schema.json'), read('CHANGELOG.md')
+    json(arg('--approved') ?? 'contracts/approved-baseline.json'), json('schemas/contracts.schema.json'), read('CHANGELOG.md')
   ]);
   const expected = buildTokenFiles(source);
   assert.equal(css, expected.css, 'Canonical CSS token drift');
@@ -82,6 +82,18 @@ export async function validate() {
   }
   const ids = components.components.map(c => c.id);
   assert.equal(ids.length, new Set(ids).size, 'Duplicate component ID');
+  const sourceAnchors=await json('contracts/source-anchors.json');
+  assert.equal(sourceAnchors.sourceGitBlobSha,sourceSha,'Source anchors bound to stale canonical source');
+  assert.equal(sourceAnchors.anchors.length,ids.length,'Every component requires one canonical source anchor');
+  for(const anchor of sourceAnchors.anchors){
+    const component=components.components.find(c=>c.id===anchor.componentId);
+    assert.ok(component,'Source anchor component not found: '+anchor.componentId);
+    const actual=anchor.fieldPath.split('.').reduce((value,key)=>value?.[key],component);
+    assert.deepEqual(actual,anchor.expectedValue,
+      'Source anchor mismatch: '+anchor.componentId+'.'+anchor.fieldPath);
+    assert.ok(source.includes(anchor.sourceSnippet),
+      'Canonical source excerpt missing: '+anchor.componentId+' ['+anchor.sourceSnippet+']');
+  }
   for (const component of components.components) for (const section of component.section.split(' and ')) {
     const escaped = section.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     assert.match(source, new RegExp('^#{1,3} ' + escaped + '(?:[.\\s]|$)', 'm'),

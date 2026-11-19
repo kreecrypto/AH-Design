@@ -4,7 +4,7 @@
 
 1. Use an isolated feature branch and PR for future contract changes.
 2. Update canonical Markdown first when changing approved design values. Do not use an undocumented external design reference to fill gaps.
-3. Update `contracts/components.json`, `contracts/layouts.json`, `contracts/policies.json`, `contracts/page-profiles.json` and the deliberate approved snapshot in `contracts/approved-baseline.json`. Each field is compared recursively; baseline changes require a reviewer and changelog entry.
+3. Update `contracts/components.json`, `contracts/layouts.json`, `contracts/policies.json`, `contracts/page-profiles.json` and the deliberate approved snapshot in `contracts/approved-baseline.json` and canonical evidence in `contracts/source-anchors.json`. Each field is compared recursively and key fields are checked against original Design.md excerpts; baseline changes require a reviewer and changelog entry.
 4. If the canonical source changes, update source SHA in `design-system.json`, `tokens/ah-tokens.json` (via `npm run tokens:sync`), and `contracts/approved-baseline.json`.
 5. Run `npm install`, `npm run tokens:check`, `npm run validate`, `npm test`. Test includes the mutation guard and official SDK MCP legacy/modern negotiation.
 6. Confirm GitHub Actions `AH Design System validation` conclusion `success` on the release commit. **No success means do not mark production ready.**

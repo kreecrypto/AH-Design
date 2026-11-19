@@ -22,7 +22,8 @@
     "pageProfiles": "contracts/page-profiles.json",
     "approvedBaseline": "contracts/approved-baseline.json",
     "schema": "schemas/contracts.schema.json",
-    "releaseGuide": "docs/RELEASING.md"
+    "releaseGuide": "docs/RELEASING.md",
+    "sourceAnchors": "contracts/source-anchors.json"
   },
   "defaultContentMode": "privacy-safe-skeleton",
   "limitations": [

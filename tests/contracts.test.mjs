@@ -46,3 +46,18 @@ test('Missing schema required id is caught',async()=>{
     o=>{delete o.components[0].id;},
     'missing id');
 });
+
+test('Even updating baseline together with Hero cannot override the canonical source',async()=>{
+  const dir=await mkdtemp(path.join(tmpdir(),'ah-source-anchor-'));
+  try{
+    const data=await file('contracts/components.json');
+    const approved=await file('contracts/approved-baseline.json');
+    data.components.find(x=>x.id==='home-hero').widthPx=1300;
+    approved.snapshot.components.find(x=>x.id==='home-hero').widthPx=1300;
+    const c=path.join(dir,'components.json'),b=path.join(dir,'approved.json');
+    await writeFile(c,JSON.stringify(data));await writeFile(b,JSON.stringify(approved));
+    const r=run('--components',c,'--approved',b);
+    assert.notEqual(r.status,0,'Canonical source should forbid unapproved dual changes');
+    assert.match(r.stderr,/Source anchor mismatch: home-hero.widthPx/);
+  }finally{await rm(dir,{recursive:true,force:true});}
+});
