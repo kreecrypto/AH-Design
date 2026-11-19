@@ -1,10 +1,9 @@
-# AI Design System — Master
-
-```yaml
+---
 version: 2.6
-revision: 2026-11-19-ai-contract-hardening
-name: AI Design System
-purpose: Single source of truth for AI-generated AI Design HTML/React UI
+revision: 2026-11-19-design-md-structure
+name: AH Design
+purpose: Single source of truth for AI-generated AH Design HTML/React UI
+description: "AH enterprise UI visual language, tokens, components and privacy-safe generation"
 scope: Design rules + privacy-safe skeleton rendering rules
 authority:
   primary: "This document"
@@ -19,57 +18,55 @@ exclude:
   - readable mock data or production data
   - navigation labels, routes, menu keys, and real hierarchy
   - page titles, card titles, table labels, column names, field labels, button copy, status text, role names, permission names, customer/product identifiers, financial values, dates, phone numbers, and other business content in design-only mockups
-```
+---
+
+# AH Design System — DESIGN.md
 
 This file is the **single source of truth** for AI-generated
-AI Design UI. It consolidates the previous multi-layer design package
+AH Design UI. It consolidates the previous multi-layer design package
 (v0.1 Core, v0.2 Improved, v0.3 Addon, Combined, and the OS modules)
 into one clean, non-redundant document. Every rule appears exactly once.
 
-## How to use this file
+## How to Use This File
 
-- Read it once before generating any UI
-- Apply the rules silently — do not narrate them in chat output
-- Use existing tokens before inventing new styles
-- All sections are in one place; jump via the Table of Contents below
+- Begin with the nine-topic reading map below, then use the numbered chapters as the complete specification.
+- Apply the documented tokens, page-specific variants, privacy and interaction rules before generating UI.
+- Use the canonical CSS token map in Section 2.2; do not invent a second set of values.
+- Apply rules silently during UI generation and explain compliance when asked.
 
-## Table of Contents
+## AI Agent Quick Start
 
-```
-1.  Core Principles
-2.  Design Tokens (contract, CSS vars, colors, typography, radius, spacing)
-3.  App Shell
-4.  Sidebar System
-5.  Full Data Skeleton Privacy System
-6.  Topbar & Search
-7.  Icon System
-8.  Shared Components (buttons, KPI, table, filter bar, side panel, pagination)
-9.  Layout System (page header, density, strict grid, allowed/forbidden sections)
-    9.6 Figma Desktop/Home calibrated variant (1440px wide reference)
-10. Page Type System
-11. Privacy-Safe Layout Contracts
-12. Component Architecture Enforcement
-13. Responsive Rules (sidebar, grid, breakpoints, mobile)
-14. State & Interaction System (hover/focus/active, loading/empty/error, motion)
-15. Chart System
-16. Form System
-17. Performance Tracking Pattern
-18. Accessibility
-19. Implementation Mapping & Anti-Drift
-20. Runtime Content Boundary
-21. AI Design Runtime
-22. AI Generation Rules
-23. Silent Design Application Rule
-24. HTML Generation Checklist
-25. AI Correction Rules
-26. Final Design Principle
-27. Known Gaps
-Appendix A — Migration Notes from v0.x
-```
+> Use this AH Design DESIGN.md as the only design system. Apply documented tokens, typography, component anatomy and page-specific contracts. Default to privacy-safe skeletons; do not invent business content, navigation or design values. Verify accessibility, responsive behavior and states.
 
------
+**Do:** Follow canonical tokens (Section 2.2), page scope (Section 9.7), component rules (Section 8), interaction states (Section 14) and privacy boundaries (Sections 5 and 20).
 
-# Important Rule
+**Don't:** Invent colors, components or protected business content; import Home-only elements into operational pages; or assume undocumented mobile/tablet pixel parity.
+
+## Nine-topic Reading Map
+
+1. **Visual Theme & Core Principles:** [1](#1-core-principles) · [26](#26-final-design-principle)
+2. **Design Tokens & Colors:** [2](#2-design-tokens) · [2.2](#22-css-variable-map-canonical) · [2.3](#23-colors-semantic-mapping)
+3. **Typography:** [2.4](#24-typography)
+4. **Components & Interaction States:** [7](#7-icon-system) · [8](#8-shared-components) · [14](#14-state--interaction-system) · [15](#15-chart-system) · [16](#16-form-system) · [17](#17-performance-tracking-pattern)
+5. **Layout & Page-specific Contracts:** [3](#3-app-shell) · [4](#4-sidebar-system) · [6](#6-topbar--search) · [9](#9-layout-system) · [9.6](#96-figma-desktophome--calibrated-home-only-component-contracts) · [9.7](#97-page-scope--contract-precedence-ai-runtime-enforcement) · [10](#10-page-type-system) · [11](#11-privacy-safe-layout-contracts) · [12](#12-component-architecture-enforcement)
+6. **Elevation, Radius & Spacing:** [2.5](#25-radius--spacing--shadows--breakpoints)
+7. **Responsive & Accessibility:** [13](#13-responsive-rules) · [18](#18-accessibility)
+8. **Privacy-safe Skeleton & Content Rules:** [5](#5-full-data-skeleton-privacy-system) · [5.4](#54-distinct-skeleton-modes--privacy-safe-vs-runtime-loading) · [20](#20-runtime-content-boundary)
+9. **AI Agent Guide, Do's & Don'ts, QA:** [0](#0-usage-rule) · [19](#19-implementation-mapping--anti-drift) · [21](#21-ah-design-runtime) · [22](#22-ai-generation-rules) · [23](#23-silent-design-application-rule) · [24](#24-html-generation-checklist) · [25](#25-ai-correction-rules) · [27](#27-known-gaps)
+
+## Complete Chapter Index
+
+[0. Usage Rule](#0-usage-rule) · [1. Core Principles](#1-core-principles) · [2. Design Tokens](#2-design-tokens) · [3. App Shell](#3-app-shell)
+[4. Sidebar System](#4-sidebar-system) · [5. Full Data Skeleton Privacy System](#5-full-data-skeleton-privacy-system) · [6. Topbar & Search](#6-topbar--search) · [7. Icon System](#7-icon-system)
+[8. Shared Components](#8-shared-components) · [9. Layout System](#9-layout-system) · [10. Page Type System](#10-page-type-system) · [11. Privacy-Safe Layout Contracts](#11-privacy-safe-layout-contracts)
+[12. Component Architecture Enforcement](#12-component-architecture-enforcement) · [13. Responsive Rules](#13-responsive-rules) · [14. State & Interaction System](#14-state--interaction-system) · [15. Chart System](#15-chart-system)
+[16. Form System](#16-form-system) · [17. Performance Tracking Pattern](#17-performance-tracking-pattern) · [18. Accessibility](#18-accessibility) · [19. Implementation Mapping & Anti-Drift](#19-implementation-mapping--anti-drift)
+[20. Runtime Content Boundary](#20-runtime-content-boundary) · [21. AH Design Runtime](#21-ah-design-runtime) · [22. AI Generation Rules](#22-ai-generation-rules) · [23. Silent Design Application Rule](#23-silent-design-application-rule)
+[24. HTML Generation Checklist](#24-html-generation-checklist) · [25. AI Correction Rules](#25-ai-correction-rules) · [26. Final Design Principle](#26-final-design-principle) · [27. Known Gaps](#27-known-gaps)
+
+---
+
+## Important Rule
 
 The AI must keep these separated and never blindly merge them:
 
@@ -80,21 +77,21 @@ The AI must keep these separated and never blindly merge them:
 
 -----
 
-# 0. Usage Rule
+## 0. Usage Rule
 
 AI must:
 
 - Read this file before generating any UI
 - Apply the rules silently — do not explain or summarize them in chat unless asked
 - Use existing tokens before inventing new styles
-- Preserve the AI Design enterprise dashboard look
+- Preserve the AH Design enterprise dashboard look
 - Never import Home-only sections into other pages
 - Treat this file as the complete visual authority; no external design reference is required
 - Do not request or depend on external design-tool links to generate compliant UI
 
 -----
 
-# 1. Core Principles
+## 1. Core Principles
 
 - Desktop-first enterprise dashboard calibrated to a 1280px reference viewport
 - KPI-first hierarchy
@@ -103,7 +100,7 @@ AI must:
 - Primary deep blue used only for interaction emphasis
 - Home-only sections MUST NOT appear on other pages
 
-## Visual Fidelity Rules
+### Visual Fidelity Rules
 
 - Prefer this Design System over generic dashboard styling
 - Use compact enterprise spacing
@@ -117,9 +114,9 @@ AI must:
 
 -----
 
-# 2. Design Tokens
+## 2. Design Tokens
 
-## 2.1 Token Usage Contract
+### 2.1 Token Usage Contract
 
 ```yaml
 token-contract:
@@ -132,7 +129,7 @@ token-contract:
   fallbackBehavior: "If an exact value is not defined, choose the nearest existing token; do not invent new colors, radii, or shadows."
 ```
 
-## 2.2 CSS Variable Map (canonical)
+### 2.2 CSS Variable Map (canonical)
 
 The layout baseline uses a 1280px desktop viewport with a 200px sidebar and a
 1080px main pane. The main pane is fluid above/below the baseline; do not create
@@ -237,7 +234,7 @@ a second fixed-width wrapper inside it unless a page contract explicitly require
 }
 ```
 
-### Alias policy
+#### Alias policy
 
 Legacy aliases may remain for backward compatibility, but new components should use
 the numeric spacing tokens and the explicit component-height tokens above. Alias values
@@ -245,7 +242,7 @@ must never diverge from their canonical token.
 
 -----
 
-## 2.3 Colors (semantic mapping)
+### 2.3 Colors (semantic mapping)
 
 ```yaml
 colors:
@@ -290,9 +287,9 @@ Rules:
 
 -----
 
-## 2.4 Typography
+### 2.4 Typography
 
-### 2.4.1 Font Family — DB Web-First (mandatory)
+#### 2.4.1 Font Family — DB Web-First (mandatory)
 
 ```yaml
 font-family:
@@ -403,7 +400,7 @@ Implementation behavior:
 3. DB Font unavailable → fall back to the defined Thai/system stack.
 4. Never change the typography scale to compensate for a missing font.
 
-### 2.4.2 Typography Scale
+#### 2.4.2 Typography Scale
 
 The canonical DB styles map as follows:
 
@@ -436,7 +433,7 @@ Rules:
 - Small badges use `14 / 20 / 400` unless the badge component variant specifies otherwise.
 - Do not restore presentation-scale 48px headings for operational screens.
 
-### Typography utility classes
+#### Typography utility classes
 
 ```yaml
 typography-classes:
@@ -452,7 +449,7 @@ typography-classes:
   .ah-button-md:  "16px / 24px / 700"
 ```
 
-## 2.5 Radius / Spacing / Shadows / Breakpoints
+### 2.5 Radius / Spacing / Shadows / Breakpoints
 
 ```yaml
 rounded:
@@ -496,7 +493,7 @@ Spacing rules:
 
 -----
 
-# 3. App Shell
+## 3. App Shell
 
 ```yaml
 app-shell:
@@ -517,7 +514,7 @@ app-shell:
     - "Topbar is transparent over the main pane"
 ```
 
-## Rules
+### Rules
 
 - Sidebar width MUST remain 200px on desktop.
 - At 1280px viewport width, the main pane MUST resolve to 1080px.
@@ -528,11 +525,11 @@ app-shell:
 
 -----
 
-# 4. Sidebar System
+## 4. Sidebar System
 
 The sidebar keeps the calibrated shell geometry. In design-only output it follows the global Full Data Skeleton Privacy System in Section 5 and exposes no readable navigation or product content.
 
-## Sidebar Geometry
+### Sidebar Geometry
 
 ```yaml
 sidebar:
@@ -562,7 +559,7 @@ sidebar-home-production-label:
   otherPageFallback: "Default operational navigation uses 20/28/400 until other Figma screens are validated"
 ```
 
-## Sidebar Skeleton Privacy Mode — Mandatory for Mockups
+### Sidebar Skeleton Privacy Mode — Mandatory for Mockups
 
 ```yaml
 sidebar-content-policy:
@@ -589,7 +586,7 @@ sidebar-content-policy:
     rule: "Real navigation content may be injected only by the explicit runtime/product-data layer. It must not be inferred from this document."
 ```
 
-## Sidebar Skeleton Anatomy
+### Sidebar Skeleton Anatomy
 
 ```yaml
 sidebar-skeleton:
@@ -636,7 +633,7 @@ sidebar-skeleton:
     containerLabel: "Navigation placeholder"
 ```
 
-## Production Selected Item Style
+### Production Selected Item Style
 
 The production runtime may use this state **only after explicit navigation data is bound**. It MUST NOT appear in skeleton-only mockups.
 
@@ -647,7 +644,7 @@ sidebar-selected-production-only:
   radius: "0 1000px 1000px 0"
 ```
 
-## Sidebar Constraints
+### Sidebar Constraints
 
 - Desktop sidebar width = 200px.
 - Desktop placeholder row slot = 32px.
@@ -661,7 +658,7 @@ sidebar-selected-production-only:
 
 -----
 
-# 5. Full Data Skeleton Privacy System
+## 5. Full Data Skeleton Privacy System
 
 This Design System defaults to **full data skeleton mode** for every design-only mockup, review artifact, prototype, or generated HTML/React output when explicit display-safe runtime content has not been supplied.
 
@@ -715,7 +712,7 @@ full-data-skeleton-policy:
     rule: "Readable content may be injected only from an explicitly supplied display-safe runtime/product-data source. Never infer content from page geometry or from this document."
 ```
 
-## 5.1 Skeleton Visual Tokens
+### 5.1 Skeleton Visual Tokens
 
 ```yaml
 skeleton:
@@ -736,7 +733,7 @@ skeleton-widths:
   fluid: "60%–88% of available slot"
 ```
 
-## 5.2 Skeleton Anatomy Rules
+### 5.2 Skeleton Anatomy Rules
 
 - Preserve the real component's **height, padding, gap, radius, alignment, and responsive behavior**.
 - Replace readable text with neutral bars sized to demonstrate hierarchy only.
@@ -749,7 +746,7 @@ skeleton-widths:
 - Buttons may preserve button geometry but text is replaced with a centered skeleton bar; do not infer action wording.
 - Topbar controls may preserve geometry but should not reveal search, notification, profile, or workflow meaning through readable copy or semantic icon names in privacy-strict artifacts.
 
-## 5.3 Source-Code Privacy Rules
+### 5.3 Source-Code Privacy Rules
 
 ```yaml
 source-privacy:
@@ -772,7 +769,7 @@ source-privacy:
 - Do not place protected content in `title`, `aria-label`, `alt`, `data-*`, comments, JavaScript arrays, object keys, IDs, or class names.
 - Generic structural terms such as `sidebar`, `table`, `card`, `row`, `column-1`, and `placeholder` are allowed.
 
-## 5.4 Distinct Skeleton Modes — Privacy-safe vs Runtime Loading
+### 5.4 Distinct Skeleton Modes — Privacy-safe vs Runtime Loading
 
 These are **different content permissions**, not merely alternate colors. The design-only default remains privacy-safe, regardless of how the production Figma screen looks.
 
@@ -801,7 +798,7 @@ skeleton-modes:
 
 -----
 
-# 6. Topbar & Search
+## 6. Topbar & Search
 
 ```yaml
 topbar:
@@ -870,7 +867,7 @@ Topbar rules:
 
 -----
 
-# 7. Icon System
+## 7. Icon System
 
 ```yaml
 icon-system:
@@ -923,9 +920,9 @@ Rules:
 
 -----
 
-# 8. Shared Components
+## 8. Shared Components
 
-## 8.1 Buttons
+### 8.1 Buttons
 
 ```yaml
 button-shape:
@@ -975,7 +972,7 @@ Rules:
 
 -----
 
-## 8.2 KPI Cards
+### 8.2 KPI Cards
 
 ```yaml
 kpi-grid:
@@ -1014,7 +1011,7 @@ Rules:
 - “Reduce empty vertical space inside KPI cards”
 - “KPI cards should visually align with enterprise dashboard density”
 
-## 8.3 Dashboard Card
+### 8.3 Dashboard Card
 
 ```yaml
 card-dashboard:
@@ -1024,7 +1021,7 @@ card-dashboard:
   padding: "16px"
 ```
 
-## 8.4 Filter Bar
+### 8.4 Filter Bar
 
 ```yaml
 filter-bar:
@@ -1077,7 +1074,7 @@ Rules:
 - “Filter chips may sit directly on app background”
 - “Avoid double-layer surface effect”
 
-## 8.5 Enterprise Data Table
+### 8.5 Enterprise Data Table
 
 ```yaml
 table-enterprise:
@@ -1161,7 +1158,7 @@ header-table-label:
   sortIcon: allowed
 ```
 
-### Privacy-safe listing column geometry
+#### Privacy-safe listing column geometry
 
 Column geometry is design data; semantic column meaning is runtime/product data and must not appear in skeleton-only artifacts.
 
@@ -1190,7 +1187,7 @@ listing-geometry-b:
   gap: 16px
 ```
 
-### Table rules
+#### Table rules
 
 - Table card radius = 16px.
 - Table card uses `12px 16px 16px` internal padding and 12px vertical section gap.
@@ -1207,7 +1204,7 @@ listing-geometry-b:
 
 -----
 
-## 8.6 Side Panel
+### 8.6 Side Panel
 
 ```yaml
 side-panel:
@@ -1239,7 +1236,7 @@ Rules:
 - Desktop operational listing pages may use `1fr + 320px` layout when side panel exists
 - On tablet/mobile, side panel moves below content
 
-## 8.7 Pagination
+### 8.7 Pagination
 
 ```yaml
 pagination:
@@ -1265,7 +1262,7 @@ Rules:
 
 - Pagination items must include active, hover, focus, and disabled states
 
-## 8.8 Component Variants Registry
+### 8.8 Component Variants Registry
 
 ```yaml
 sidebar:
@@ -1287,7 +1284,7 @@ form-input:
   variants: [default, error, disabled]
 ```
 
-## 8.9 Component Reuse Rules
+### 8.9 Component Reuse Rules
 
 - Never duplicate sidebar markup with different spacing or typography
 - Never create page-specific table styles for shared operational listing pages
@@ -1299,9 +1296,9 @@ form-input:
 
 -----
 
-# 9. Layout System
+## 9. Layout System
 
-## 9.1 Page Header Pattern
+### 9.1 Page Header Pattern
 
 The calibrated operational screens use the page title inside the 64px topbar/header,
 not a separate oversized marketing header block.
@@ -1335,7 +1332,7 @@ Rules:
 
 -----
 
-## 9.2 Layout Density & Rhythm
+### 9.2 Layout Density & Rhythm
 
 ```yaml
 density-rhythm:
@@ -1359,7 +1356,7 @@ Rules:
 
 -----
 
-## 9.3 Strict Layout Grid
+### 9.3 Strict Layout Grid
 
 ```yaml
 strict-grid:
@@ -1379,7 +1376,7 @@ strict-grid:
     equation: "1048 - 16 - 16 = 1016"
 ```
 
-### Strict layout constraints
+#### Strict layout constraints
 
 - At 1280px desktop: sidebar = 200px and main pane = 1080px.
 - Main pane fills remaining width on larger desktops; it is not capped at 1240px.
@@ -1390,7 +1387,7 @@ strict-grid:
 
 -----
 
-## 9.4 Allowed Shared Sections
+### 9.4 Allowed Shared Sections
 
 These may appear on ANY page:
 
@@ -1399,7 +1396,7 @@ These may appear on ANY page:
 - Filter Bars, Side Panels, Summary Blocks
 - Empty States, Pagination
 
-## 9.5 Forbidden Global Sections
+### 9.5 Forbidden Global Sections
 
 These belong ONLY to Home page. Must NEVER auto-inherit into other pages:
 
@@ -1412,7 +1409,7 @@ These belong ONLY to Home page. Must NEVER auto-inherit into other pages:
 - Marketing Cards
 - Gradient Summary Blocks
 
-## 9.6 Figma Desktop/Home — Calibrated Home-only Component Contracts
+### 9.6 Figma Desktop/Home — Calibrated Home-only Component Contracts
 
 This is a **page-specific 1440px wide reference**, measured from Figma `Desktop/Home`, and must not override the 1280px operational baseline or be auto-inherited by Listing/Form/Table pages. Measurements refer to [screen 3101:118014](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3101-118014), with [loading screen 6142:388916](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=6142-388916) for skeleton state. **No product names, copy, values, routes or UI data from Figma are part of this contract.**
 
@@ -1490,7 +1487,7 @@ Home-specific typography maps to existing `metric-xl` (hero), `display-xl` (Home
 
 **Scope / responsive safeguards:** Values above were **observed only at the 1440px Desktop/Home Figma reference**. Implement using flex/grid and fluid main-pane sizing; for smaller screens follow Section 13 and QA each breakpoint. Do not scale or hardcode this 1440px geometry into mobile/tablet without their own measured reference. Preserve Section 5's privacy-safe placeholders when runtime content has not been explicitly approved. Never apply these Home cards/shadows/hero sections to operational or listing pages.
 
-## 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
+### 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
 
 This subsection resolves collisions between generic operational defaults and the documented Desktop/Home page exception **using this repository's existing canonical contracts only**. No live Figma data, external design fetch or content inference is authorized.
 
@@ -1510,7 +1507,7 @@ Rules for AI adapters and machine-readable exports:
 
 -----
 
-# 10. Page Type System
+## 10. Page Type System
 
 ```yaml
 page-types:
@@ -1554,11 +1551,11 @@ All page types inherit Section 5. Page type selection controls **layout only**, 
 
 -----
 
-# 11. Privacy-Safe Layout Contracts
+## 11. Privacy-Safe Layout Contracts
 
 These contracts retain only calibrated geometry. Names, labels, navigation destinations, business semantics, table meanings, and readable values are deliberately excluded.
 
-## 11.1 Listing Layout A
+### 11.1 Listing Layout A
 
 ```yaml
 listing-layout-a:
@@ -1594,7 +1591,7 @@ listing-layout-a:
     bodyContent: skeleton
 ```
 
-## 11.2 Listing Layout B
+### 11.2 Listing Layout B
 
 ```yaml
 listing-layout-b:
@@ -1628,7 +1625,7 @@ listing-layout-b:
     bodyContent: skeleton
 ```
 
-## 11.3 Generic Operational Listing
+### 11.3 Generic Operational Listing
 
 ```yaml
 generic-operational-listing:
@@ -1658,9 +1655,9 @@ Rules:
 
 -----
 
-# 12. Component Architecture Enforcement
+## 12. Component Architecture Enforcement
 
-## 12.1 Required Shared Components
+### 12.1 Required Shared Components
 
 ```yaml
 app-shell:
@@ -1710,12 +1707,12 @@ Component reuse rule:
 
 -----
 
-# 13. Responsive Rules
+## 13. Responsive Rules
 
 The calibrated source screens define desktop behavior only. Tablet/mobile behavior below is
 an implementation adaptation and MUST preserve the desktop component anatomy and typography hierarchy.
 
-## 13.1 Responsive Sidebar Behavior
+### 13.1 Responsive Sidebar Behavior
 
 ```yaml
 responsive-sidebar-behavior:
@@ -1742,7 +1739,7 @@ responsive-sidebar-behavior:
     animation: slide-left
 ```
 
-## 13.2 Responsive Main Pane
+### 13.2 Responsive Main Pane
 
 ```yaml
 responsive-main-pane:
@@ -1757,7 +1754,7 @@ responsive-main-pane:
     gutter: 16px
 ```
 
-## 13.3 Responsive Content
+### 13.3 Responsive Content
 
 - Summary rows may wrap from multi-column to 2-column and then 1-column.
 - Preserve 16px card radius and 8–16px internal spacing.
@@ -1765,7 +1762,7 @@ responsive-main-pane:
 - Search/filter controls may wrap, but remain 40px high.
 - Header title remains 32/42 where space permits; on very narrow mobile widths, use the nearest defined heading token rather than arbitrary scaling.
 
-## 13.4 Mobile Interaction Rules
+### 13.4 Mobile Interaction Rules
 
 - Drawer overlays content and closes after navigation.
 - Touch targets for primary actions should be at least 44px even if the desktop visual button is 40px; add hit-area padding without visually enlarging the control when possible.
@@ -1775,9 +1772,9 @@ responsive-main-pane:
 
 -----
 
-# 14. State & Interaction System
+## 14. State & Interaction System
 
-## 14.1 Interaction States
+### 14.1 Interaction States
 
 ```yaml
 states-required:
@@ -1795,7 +1792,7 @@ states-required:
     pointerEvents: "none"
 ```
 
-### Required state coverage
+#### Required state coverage
 
 - Buttons: hover, active, focus, disabled
 - Filter chips: active, focus
@@ -1804,7 +1801,7 @@ states-required:
 - Search input: focus ring without adding border in default state
 - Pagination items: active, hover, focus, disabled
 
-## 14.2 Loading / Empty / Error States
+### 14.2 Loading / Empty / Error States
 
 ```yaml
 loading-state:
@@ -1835,7 +1832,7 @@ Rules:
 - Avoid modal-only errors
 - Every listing page must support empty state
 
-## 14.3 Data States Contract
+### 14.3 Data States Contract
 
 ```yaml
 data-states:
@@ -1852,7 +1849,7 @@ Rules:
 - Every operational listing must support empty state
 - Permission denied state uses neutral background
 
-## 14.4 Motion System
+### 14.4 Motion System
 
 ```yaml
 motion:
@@ -1863,7 +1860,7 @@ motion:
   easingInOut: ease-in-out
 ```
 
-### Allowed motion
+#### Allowed motion
 
 - fade
 - slide-up
@@ -1871,14 +1868,14 @@ motion:
 - subtle scale (scale-soft)
 - opacity hover
 
-### Forbidden motion
+#### Forbidden motion
 
 - bounce
 - elastic
 - heavy parallax
 - distracting animation
 
-### Interaction motion
+#### Interaction motion
 
 - Hover: opacity
 - Active: scale 0.99
@@ -1886,7 +1883,7 @@ motion:
 
 -----
 
-# 15. Chart System
+## 15. Chart System
 
 ```yaml
 chart-system:
@@ -1930,7 +1927,7 @@ Rules:
 
 -----
 
-# 16. Form System
+## 16. Form System
 
 ```yaml
 form-input:
@@ -1982,7 +1979,7 @@ Rules:
 
 -----
 
-# 17. Performance Tracking Pattern
+## 17. Performance Tracking Pattern
 
 Performance-oriented mockups preserve geometry only; metric names, values, targets, labels, and statuses are runtime data and remain skeletonized.
 
@@ -2014,7 +2011,7 @@ Rules:
 
 -----
 
-# 18. Accessibility
+## 18. Accessibility
 
 ```yaml
 a11y:
@@ -2041,13 +2038,13 @@ Rules:
 
 -----
 
-# 19. Implementation Mapping & Anti-Drift
+## 19. Implementation Mapping & Anti-Drift
 
 This section defines how the standalone Design System maps into implementation.
 No external design file, node, URL, or design-tool reference is required at runtime.
 This document is authoritative.
 
-## 19.1 Naming Convention
+### 19.1 Naming Convention
 
 ```yaml
 ah-naming:
@@ -2056,7 +2053,7 @@ ah-naming:
   tokenPattern:     "AH / Tokens / Category"
 ```
 
-## 19.2 Implementation Mapping Rules
+### 19.2 Implementation Mapping Rules
 
 - Design section → semantic HTML section/component.
 - Auto-layout relationships → CSS flex/grid before absolute positioning.
@@ -2065,7 +2062,7 @@ ah-naming:
 - Shared component contracts override page-local styling.
 - Page contracts may specialize layout only where explicitly allowed.
 
-## 19.3 Design Rule Preservation
+### 19.3 Design Rule Preservation
 
 Preserve:
 
@@ -2078,7 +2075,7 @@ Preserve:
 - 16px operational card radius.
 - component variants, responsive behavior, interaction states, and sidebar skeleton privacy mode.
 
-## 19.4 Visual Matching Priority
+### 19.4 Visual Matching Priority
 
 - Prioritize visual conformity to this Design System over generic dashboard conventions.
 - Preserve calibrated density before adding whitespace.
@@ -2086,7 +2083,7 @@ Preserve:
 - Primary blue is used deliberately for title/selection/action/link emphasis.
 - The primary-to-indigo gradient is reserved for the documented accent summary-card variant. Home uses its separately documented solid hero fill (`--ah-home-hero-bg`); do not turn it into a generic page gradient.
 
-## 19.5 Anti-Drift Rules
+### 19.5 Anti-Drift Rules
 
 - No 48px operational page titles.
 - No fixed 1240px inner content canvas.
@@ -2102,7 +2099,7 @@ Preserve:
 
 -----
 
-# 20. Runtime Content Boundary
+## 20. Runtime Content Boundary
 
 Role names, permission names, team names, visibility rules, navigation destinations, workflow names, and domain content are **runtime/product data**, not design-system content.
 
@@ -2123,9 +2120,9 @@ The Design System defines geometry and visual states only. It must never invent 
 
 -----
 
-# 21. AI Design Runtime
+## 21. AH Design Runtime
 
-## 21.1 Render Pipeline
+### 21.1 Render Pipeline
 
 1. Load tokens
 1. Load layout shell
@@ -2135,7 +2132,7 @@ The Design System defines geometry and visual states only. It must never invent 
 1. Apply responsive rules
 1. Apply interaction states
 
-## 21.2 Runtime Rules
+### 21.2 Runtime Rules
 
 - All pages must consume token variables only
 - Shared components required before custom component creation
@@ -2143,7 +2140,7 @@ The Design System defines geometry and visual states only. It must never invent 
 - Sidebar container locked to 200px; mockup content uses privacy-safe skeleton placeholders
 - Enterprise density required
 
-## 21.3 AI Enforcement
+### 21.3 AI Enforcement
 
 - Prevent generic SaaS layouts
 - Prevent oversized spacing
@@ -2152,7 +2149,7 @@ The Design System defines geometry and visual states only. It must never invent 
 
 -----
 
-# 22. AI Generation Rules
+## 22. AI Generation Rules
 
 The AI generator must follow these when emitting HTML/React:
 
@@ -2184,7 +2181,7 @@ The AI generator must follow these when emitting HTML/React:
 
 -----
 
-# 23. Silent Design Application Rule
+## 23. Silent Design Application Rule
 
 Apply this DESIGN silently. In design-only/mockup mode every generated page must satisfy:
 
@@ -2212,7 +2209,7 @@ Apply this DESIGN silently. In design-only/mockup mode every generated page must
 
 -----
 
-# 24. HTML Generation Checklist
+## 24. HTML Generation Checklist
 
 Before delivering generated UI, verify:
 
@@ -2281,7 +2278,7 @@ If any required check fails, correct the implementation before delivery.
 
 -----
 
-# 25. AI Correction Rules
+## 25. AI Correction Rules
 
 When a generated page does not match the design, fix in this order:
 
@@ -2299,9 +2296,9 @@ When a generated page does not match the design, fix in this order:
 
 -----
 
-# 26. Final Design Principle
+## 26. Final Design Principle
 
-AI Design UI must feel:
+AH Design UI must feel:
 
 - enterprise
 - operational
@@ -2322,7 +2319,7 @@ When in doubt:
 
 -----
 
-# 27. Known Gaps
+## 27. Known Gaps
 
 - The general operational reference remains desktop-first at 1280x768; the additional Desktop/Home profile in Section 9.6 is measured at 1440px only. Tablet/mobile behavior needs independent Figma inspection and QA.
 - Some shared components expose additional variants not represented in the calibrated screens; do not infer undocumented visual variants from names alone. Search/sidebar variants for non-Home pages are unchanged pending their own Figma audit.
