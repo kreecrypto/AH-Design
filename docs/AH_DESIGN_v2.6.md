@@ -2,6 +2,7 @@
 
 ```yaml
 version: 2.6
+revision: 2026-11-19-home-figma-alignment
 name: AI Design System
 purpose: Single source of truth for AI-generated AI Design HTML/React UI
 scope: Design rules + privacy-safe skeleton rendering rules
@@ -44,6 +45,7 @@ into one clean, non-redundant document. Every rule appears exactly once.
 7.  Icon System
 8.  Shared Components (buttons, KPI, table, filter bar, side panel, pagination)
 9.  Layout System (page header, density, strict grid, allowed/forbidden sections)
+    9.6 Figma Desktop/Home calibrated variant (1440px wide reference)
 10. Page Type System
 11. Privacy-Safe Layout Contracts
 12. Component Architecture Enforcement
@@ -144,6 +146,8 @@ a second fixed-width wrapper inside it unless a page contract explicitly require
   --ah-primary-dark: #000056;
   --ah-primary-soft: #e2efff;
   --ah-primary-gradient-end: #4658fc;
+  --ah-home-hero-bg: #5257f5; /* calibrated Desktop/Home only */
+  --ah-home-loading-base: #d4d7dd; /* runtime Home loading only */
 
   --ah-canvas: #ffffff;
   --ah-app-bg: #f0f6ff;
@@ -181,9 +185,14 @@ a second fixed-width wrapper inside it unless a page contract explicitly require
   --ah-main-pane-width: calc(100vw - var(--ah-sidebar-width));
   --ah-content-gutter: 16px;
   --ah-topbar-height: 64px;
-  --ah-search-width: 370px;
+  --ah-search-width: 370px; /* operational default */
+  --ah-home-search-width: 292px;
+  --ah-home-search-input-width: 200px;
+  --ah-home-search-gap: 12px;
   --ah-search-height: 40px;
   --ah-sidebar-item-height: 32px;
+  --ah-home-sidebar-label-size: 16px;
+  --ah-home-sidebar-label-line-height: 24px;
   --ah-table-header-height: 44px;
   --ah-table-row-height: 44px;
   --ah-table-row-height-comfortable: 48px;
@@ -198,6 +207,7 @@ a second fixed-width wrapper inside it unless a page contract explicitly require
   --ah-radius-md: 12px;
   --ah-radius-lg: 16px;
   --ah-radius-full: 100px;
+  --ah-home-loading-pill-radius: var(--ah-radius-full);
   --ah-radius-pill: 100px;   /* alias */
   --ah-radius-chip: 999px;
   --ah-radius-rail: 1000px;
@@ -222,6 +232,7 @@ a second fixed-width wrapper inside it unless a page contract explicitly require
 
   /* Shadows */
   --ah-shadow-card: 0px 4px 8px rgba(150,167,214,0.15);
+  --ah-home-right-card-shadow: 0px 4px 20px rgba(0,0,0,0.10);
   --ah-shadow-none: none;
 }
 ```
@@ -410,7 +421,7 @@ typography:
   display-xl:    { size: 32px, weight: 700, lineHeight: 42px }  # page title
   heading-lg:    { size: 24px, weight: 700, lineHeight: 30px }  # card/section title
   heading-md:    { size: 20px, weight: 700, lineHeight: 28px }
-  body-lg:       { size: 20px, weight: 400, lineHeight: 28px }  # primary table/nav/content text
+  body-lg:       { size: 20px, weight: 400, lineHeight: 28px }  # primary table/operational content text
   body-md:       { size: 16px, weight: 400, lineHeight: 24px }
   body-sm:       { size: 14px, weight: 400, lineHeight: 20px }
   body-xs:       { size: 12px, weight: 400, lineHeight: 18px }
@@ -421,7 +432,7 @@ Rules:
 
 - Page titles use `32 / 42 / 700` and primary blue.
 - Card and table-section titles use `24 / 30 / 700` and deep ink.
-- Primary table cells and sidebar menu labels use `20 / 28 / 400`.
+- Primary table cells and default operational navigation use `20 / 28 / 400`; the **explicit Desktop/Home sidebar** uses `16 / 24 / 400` (see Section 4), without changing table typography.
 - Small badges use `14 / 20 / 400` unless the badge component variant specifies otherwise.
 - Do not restore presentation-scale 48px headings for operational screens.
 
@@ -435,6 +446,7 @@ typography-classes:
   .ah-heading-md: "20px / 28px / 700"
   .ah-body-lg:    "20px / 28px / 400"
   .ah-body-md:    "16px / 24px / 400"
+  .ah-sidebar-home-label: "16px / 24px / 400" # Home production variant only
   .ah-body-sm:    "14px / 20px / 400"
   .ah-body-xs:    "12px / 18px / 400"
   .ah-button-md:  "16px / 24px / 700"
@@ -539,6 +551,15 @@ sidebar-item-slot:
 
 sidebar-group-stack:
   gap: 24px
+
+sidebar-home-production-label:
+  font: "{typography.body-md}"
+  fontSize: "var(--ah-home-sidebar-label-size)"
+  lineHeight: "var(--ah-home-sidebar-label-line-height)"
+  fontWeight: 400
+  figmaTextStyle: "DB Helvethaica X / 55 Regular"
+  scope: "Desktop/Home with explicitly supplied display-safe runtime navigation only"
+  otherPageFallback: "Default operational navigation uses 20/28/400 until other Figma screens are validated"
 ```
 
 ## Sidebar Skeleton Privacy Mode — Mandatory for Mockups
@@ -751,6 +772,33 @@ source-privacy:
 - Do not place protected content in `title`, `aria-label`, `alt`, `data-*`, comments, JavaScript arrays, object keys, IDs, or class names.
 - Generic structural terms such as `sidebar`, `table`, `card`, `row`, `column-1`, and `placeholder` are allowed.
 
+## 5.4 Distinct Skeleton Modes — Privacy-safe vs Runtime Loading
+
+These are **different content permissions**, not merely alternate colors. The design-only default remains privacy-safe, regardless of how the production Figma screen looks.
+
+```yaml
+skeleton-modes:
+  privacy-safe-skeleton:
+    default: true
+    appliesWhen: "design-only or no explicitly supplied display-safe runtime data"
+    chrome: "neutral placeholders; no readable navigation, selected route, page or section title, action name or semantic icon"
+    palette: "{skeleton.base} / {skeleton.highlight}"
+    geometry: "{skeleton.radiusText} / {skeleton.radiusTitle} / {skeleton.radiusIcon}"
+    sourcePrivacy: "Section 5.3 remains mandatory"
+
+  loading-skeleton:
+    default: false
+    appliesWhen: "actual application loading, with approved static navigation/chrome explicitly bound by runtime"
+    chrome: "approved static navigation, active state and stable section headings MAY remain visible"
+    loadingSlots: "data-bearing content replaced with neutral shapes; no unapproved business/customer values"
+    homeVariant: "Section 9.6; uses the separately measured Figma Home loading appearance"
+    fallback: "privacy-safe-skeleton when approved runtime chrome is not available"
+```
+
+- **Do not** use the Figma screenshot itself as authorization to copy real navigation labels, financial figures, workflow names or routes into design-only mockups, test fixtures or source code.
+- Loading placeholders are `aria-hidden=true` where appropriate; mark loading regions `aria-busy=true` and provide accessible non-sensitive loading status.
+- This section changes neither the privacy restrictions in Sections 4–5 nor the runtime content boundary in Section 20.
+
 -----
 
 # 6. Topbar & Search
@@ -771,7 +819,7 @@ topbar-layout:
     flex: 1
     gap: 16px
   rightZone:
-    width: 370px
+    width: 370px # operational default; Desktop/Home overrides to 292px
     component: desktop-search
 
 topbar-context-title:
@@ -788,6 +836,18 @@ search-composite:
   inputWidth: 270px
   actionZoneWidth: 80px
 
+home-topbar-search:
+  scope: "Desktop/Home only; measured at 1440px viewport"
+  width: 292px
+  height: 40px
+  internalGap: 12px
+  inputWidth: 200px
+  inputHeight: 40px
+  actionZoneWidth: 80px
+  actionZoneHeight: 32px
+  rightAligned: true
+  cssWidthToken: "var(--ah-home-search-width)"
+
 search-control:
   height: 40px
   borderColor: "{colors.field-border}"
@@ -802,7 +862,7 @@ Topbar rules:
 - Topbar is a 64px transparent frame with 16px padding.
 - Page title is part of the topbar/header area and uses `32 / 42 / 700` in primary blue.
 - At the 1280px baseline the topbar spans the full 1080px main pane.
-- Search/action composite occupies 370px and stays right aligned.
+- Operational search/action composite occupies 370px and stays right aligned; only Desktop/Home uses the measured `home-topbar-search` 292px variant. Do not change Listing/Operational Search until their own Figma screens are audited.
 - Do not create a separate white header band behind the topbar.
 - Do not replace the compact 32px page title with a 48px marketing heading.
 - Notification/profile controls live inside the right-side composite when the page uses them.
@@ -1352,12 +1412,95 @@ These belong ONLY to Home page. Must NEVER auto-inherit into other pages:
 - Marketing Cards
 - Gradient Summary Blocks
 
+## 9.6 Figma Desktop/Home — Calibrated Home-only Component Contracts
+
+This is a **page-specific 1440px wide reference**, measured from Figma `Desktop/Home`, and must not override the 1280px operational baseline or be auto-inherited by Listing/Form/Table pages. Measurements refer to [screen 3101:118014](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3101-118014), with [loading screen 6142:388916](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=6142-388916) for skeleton state. **No product names, copy, values, routes or UI data from Figma are part of this contract.**
+
+```yaml
+home-desktop-wide-reference:
+  referenceViewport: 1440px
+  sidebar: 200px
+  mainPane: 1240px # 1440 - 200; fluid above/below, never a fixed inner wrapper
+  mainPaneBackground: "{colors.canvas}" # observed Home; operational pages retain app-bg
+  contentGutter: 16px
+  innerContentWidthAt1440: 1208px
+  topbar: { height: 64px, searchVariant: home-topbar-search }
+  sidebarLabelVariant: sidebar-home-production-label
+
+  heroBanner:
+    width: "100% of main pane (1240px at 1440)"
+    heightAt1440: 277px
+    background: "var(--ah-home-hero-bg)" # solid #5257f5 in inspected instance
+    title: "40px / 46px / 700, DB Helvethaica X 75 Bd"
+    headerOverlay: "64px header within the Home banner region"
+    semantics: "geometry only in privacy-safe-skeleton"
+
+  shortcutMenu:
+    container: "1208 x 126px"
+    itemReference: "approximately 121 x 80px"
+    heading: "24px / 30px / 700"
+    itemCaption: "16px / 16px / 400, scoped only to the Home quick-menu slot"
+    privacy: "generic placeholder grouping; do not infer or mirror actual menu count or meaning"
+
+  annualOverview:
+    section: "1208 x 284px"
+    contentCards: "two cards, 596 x 208px each, 16px gap"
+    radius: "{rounded.sm}"
+    fill: "{colors.primary-soft} with a 30%-opacity white overlay"
+
+  personalSummary:
+    section: "1208 x 182px"
+    cardReference: "290 x 128px; 16px gaps at 1440px"
+    radius: "{rounded.sm}"
+    fill: "{colors.primary-soft} with a 30%-opacity white overlay"
+    shadow: none # the inspected blue shadow effect exists but visible=false
+    title: "32px / 42px / 700 where a metric-card heading is used"
+
+  supportRegion:
+    tilesContainer: "861 x 230px"
+    sampleTile: "approximately 134 x 88px"
+    sampleTileFill: "{colors.primary-soft}"
+    sampleTileRadius: "{rounded.sm}"
+    rightCard: "323 x 334px, white, radius 12px"
+    rightCardShadow: "var(--ah-home-right-card-shadow)" # visible 0 4px 20px rgba(0,0,0,.10)
+    columnGap: 24px
+
+  announcement:
+    cardReference: "330 x 110px"
+    cardRadius: "{rounded.sm}"
+    content: "runtime-supplied only"
+
+  floatingChat:
+    control: "56 x 56px"
+    referenceContainer: "120 x 120px in the inspected screenshot"
+    visibility: "Home-only; may vary by scenario"
+
+home-loading-skeleton:
+  mode: loading-skeleton # never the default privacy-safe-skeleton
+  placeholderFill: "var(--ah-home-loading-base)" # observed #d4d7dd
+  pillRadius: "var(--ah-home-loading-pill-radius)" # 100px
+  measuredPlaceholderHeights: [28px, 18px, 10px]
+  measuredBannerBarWidths: [160px, 286px, 368px]
+  navAndSectionChrome: "approved runtime-only; design-only mode must keep these neutral"
+```
+
+Home-specific typography maps to existing `metric-xl` (hero), `display-xl` (Home metric titles), `heading-lg` (section title) and `body-md` (sidebar); the 16/16 quick-menu caption is a **slot exception**, not a new global body scale.
+
+**Scope / responsive safeguards:** Values above were **observed only at the 1440px Desktop/Home Figma reference**. Implement using flex/grid and fluid main-pane sizing; for smaller screens follow Section 13 and QA each breakpoint. Do not scale or hardcode this 1440px geometry into mobile/tablet without their own measured reference. Preserve Section 5's privacy-safe placeholders when runtime content has not been explicitly approved. Never apply these Home cards/shadows/hero sections to operational or listing pages.
+
 -----
 
 # 10. Page Type System
 
 ```yaml
 page-types:
+  home:
+    density: compact
+    useHomeOnlySections: true
+    referenceGeometry: "Section 9.6, Desktop/Home at 1440px"
+    contentModeInMockup: skeleton-only
+    productionLoadingMode: "loading-skeleton only with approved runtime chrome (Section 5.4)"
+
   operational-dashboard:
     density: compact
     useSummary: true
@@ -1645,6 +1788,7 @@ states-required:
 
 ```yaml
 loading-state:
+  scope: "default generic and privacy-safe loading; Home runtime loading variant is in Sections 5.4 and 9.6"
   skeletonRadius: 8px
   shimmerOpacity: 0.12
 
@@ -1909,7 +2053,7 @@ Preserve:
 - 1280 desktop baseline with 200px sidebar and 1080px main pane.
 - 16px main-pane gutters.
 - 32/42 page title and 24/30 section title hierarchy.
-- 20/28 primary table/nav content typography.
+- 20/28 primary table and default operational navigation typography; Desktop/Home production sidebar is explicitly 16/24/400.
 - 40px controls/tabs, 44px table header, 44/48px table body rows.
 - 16px operational card radius.
 - component variants, responsive behavior, interaction states, and sidebar skeleton privacy mode.
@@ -1920,7 +2064,7 @@ Preserve:
 - Preserve calibrated density before adding whitespace.
 - Standard cards are white on the light-blue app background.
 - Primary blue is used deliberately for title/selection/action/link emphasis.
-- The primary-to-indigo gradient is reserved for the documented accent summary-card variant.
+- The primary-to-indigo gradient is reserved for the documented accent summary-card variant. Home uses its separately documented solid hero fill (`--ah-home-hero-bg`); do not turn it into a generic page gradient.
 
 ## 19.5 Anti-Drift Rules
 
@@ -1929,7 +2073,7 @@ Preserve:
 - No 40px sidebar rows; desktop sidebar menu rows are 32px.
 - No 56px compact table rows; compact = 44px, comfortable = 48px.
 - No 14px primary table body typography; primary cells use 20/28 unless a specific compact subcomponent says otherwise.
-- No generic gradients; only the documented accent summary-card gradient exception is allowed.
+- No generic gradients; only the documented accent summary-card gradient exception is allowed. The Home hero has a separate measured solid background token, not a generic gradient.
 - No dark-blue table header fill; table header uses app-bg.
 - No card shadow on enterprise table containers.
 - No alternate font family when approved DB webfont or supported local DB font is available.
@@ -2071,6 +2215,13 @@ html-generation-checklist:
     - "1280px baseline main pane = 1080px"
     - "Main content horizontal gutter = 16px"
 
+  homeVariant:
+    - "Apply Section 9.6 only on Home at the 1440px wide reference; other page contracts unchanged"
+    - "Home production sidebar uses 16/24 text and Home search uses 292 x 40px with 200px input"
+    - "Design-only remains privacy-safe-skeleton; Figma loading visuals only in approved runtime loading mode"
+    - "Home loading placeholder is #d4d7dd with 100px pill radius; generic skeleton tokens remain unchanged"
+    - "Home-only cards, hero, announcement and live chat never appear on operational/listing pages"
+
   topbar:
     - "Height = 64px"
     - "Padding = 16px"
@@ -2153,8 +2304,8 @@ When in doubt:
 
 # 27. Known Gaps
 
-- The calibrated reference set is desktop-first at 1280x768; tablet/mobile behavior is an implementation adaptation and must be QA-tested separately.
-- Some shared components expose additional variants not represented in the calibrated screens; do not infer undocumented visual variants from names alone.
+- The general operational reference remains desktop-first at 1280x768; the additional Desktop/Home profile in Section 9.6 is measured at 1440px only. Tablet/mobile behavior needs independent Figma inspection and QA.
+- Some shared components expose additional variants not represented in the calibrated screens; do not infer undocumented visual variants from names alone. Search/sidebar variants for non-Home pages are unchanged pending their own Figma audit.
 - Exact image/avatar/content data is runtime product data and remains skeletonized or absent in design-only output.
 - Motion timing is normalized by Section 14 because the static reference does not establish animation timing.
 - Webfont delivery still depends on approved DB webfont files and valid web-embedding rights.
