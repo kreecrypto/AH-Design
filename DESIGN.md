@@ -1,6 +1,6 @@
 ---
 version: 2.6
-revision: 2026-11-19-design-md-structure
+revision: 2026-11-19-figma-home-responsive
 name: AH Design
 purpose: Single source of truth for AI-generated AH Design HTML/React UI
 description: "AH enterprise UI visual language, tokens, components and privacy-safe generation"
@@ -1485,24 +1485,79 @@ home-loading-skeleton:
 
 Home-specific typography maps to existing `metric-xl` (hero), `display-xl` (Home metric titles), `heading-lg` (section title) and `body-md` (sidebar); the 16/16 quick-menu caption is a **slot exception**, not a new global body scale.
 
-**Scope / responsive safeguards:** Values above were **observed only at the 1440px Desktop/Home Figma reference**. Implement using flex/grid and fluid main-pane sizing; for smaller screens follow Section 13 and QA each breakpoint. Do not scale or hardcode this 1440px geometry into mobile/tablet without their own measured reference. Preserve Section 5's privacy-safe placeholders when runtime content has not been explicitly approved. Never apply these Home cards/shadows/hero sections to operational or listing pages.
+**Scope / responsive safeguards:** The base values above describe Desktop/Home at 1440px. Additional **Home-only** Tablet 1024px and Mobile 393px references are documented in Sections 9.6.2–9.6.4. Use intrinsic fluid layout and Section 13 for unmeasured widths; do not scale desktop geometry blindly or imply pixel parity where none was verified. Preserve privacy-safe placeholders. Never transfer Home-only components into operational/listing pages.
+
+#### 9.6.1 Desktop/Home Scenario Matrix
+
+Figma's [Desktop/Home section](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3093-148134) has **five primary top-level `screen/desktop/home` instances**. Their neutral IDs below name visual variants only; they are not business-state names. All are **1440px wide**, with a 200px sidebar and 1240px main pane. Other nested scenario examples are outside this five-screen matrix.
+
+| Variant | Figma node | Viewport (px) | Main-content frame | Floating chat | Contract implication |
+|---|---|---:|---:|---|---|
+| D1 — reference | [3101:118014](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3101-118014) | 1440 × 1400 | 1315px | Present: 56px inside 120px slot | Baseline Home anatomy |
+| D2 — shorter viewport | [5005:626915](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5005-626915) | 1440 × 1024 | 1315px | Present | Content may extend beyond the visible frame; do not hard-code 1024px content height |
+| D3 — chat absent | [3288:294051](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3288-294051) | 1440 × 1332 | 1315px | **Absent** | Floating chat is optional, never required on every Home scenario |
+| D4 — extended content | [3103:129970](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3103-129970) | 1440 × 1604 | 1513px | Present | Content-driven vertical expansion |
+| D5 — extended content, short frame | [5005:634761](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5005-634761) | 1440 × 1024 | 1513px | Present | Preserve scrolling/access to content; never infer the visible crop as the complete page |
+
+The separate [Home loading screen 6142:388916](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=6142-388916) measures 1440 × 1342px. Its placeholder appearance is already covered by Section 9.6; **content permissions still come from Section 5.4**, not the screenshot.
+
+#### 9.6.2 Banner Variants — Actual Screen vs Component Example
+
+| Source context | Figma reference | Banner size | Hero title (DB 75 Bd) | Correct scope |
+|---|---|---|---|---|
+| Desktop/Home | [3182:84020](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3182-84020) | 1240 × 277px | 40/46px | Wide desktop |
+| Tablet/Home with compact sidebar | [5912:411981](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-411981) | ≈944.98 × 277px | See inspected instance | 1024px screen, sidebar ≈79.02px |
+| Tablet/Home with full sidebar | [5912:408868](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-408868) | 824 × 277px | 24/30px | 1024px screen, sidebar 200px |
+| Standalone narrow banner | [3182:84123](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3182-84123) | **824 × 306px** | 24/30px | Component specimen, **not** the 824 × 277px Tablet/Home screen |
+| Mobile/Home at 393px | [3185:128069](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-128069) | **365 × 150px** | **20/30px** | In 393 × 182px hero slot, 14px horizontal / 16px vertical inset |
+| Standalone mobile banner | [3185:84413](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-84413) | 365 × 150px | **20/24px** | Isolated specimen differs in line-height; do not override Mobile/Home screen typography |
+
+**Illustration/image slots:** the inspected wide desktop and 824px standalone banner use a **343 × 257.35px** vector illustration. The 365px mobile banner uses an illustration approximately **202.59 × 152px** inside its nested layout (x≈162px, y≈−28px relative to the inner slot). These are layout references only. Do not embed Figma illustrations, image URLs, real labels or domain content into design-only output; use neutral placeholder anatomy when assets are not explicitly approved.
+
+#### 9.6.3 Home Component Anatomy & Conditional Slots
+
+| Home component | Measured anatomy | Rule |
+|---|---|---|
+| Shortcut-menu item | ≈120.8 × 80px; centered 40 × 40px icon wrapper with 24 × 24px glyph at 8px inset; caption starts at y=48px and uses scoped 16/16px typography | Do not infer content or item meanings; preserve composition, not copied labels |
+| Optional shortcut badge | 22 × 18px badge near the icon wrapper's upper-right; 14 × 18px internal content slot | Optional state only; do not invent numerical counts |
+| Support tile | ≈133.5 × 88px, inner content 109.5 × 64px at 12px inset, 40 × 40px icon specimen | Home-only; use generic geometry without approved semantic icons |
+| Right-side card | 323 × 334px, inner region 291 × 302px with 16px side inset, radius 12px, visible `0 4px 20px rgba(0,0,0,.10)` shadow | Preserve header/divider/content grouping; skeletonize business-bearing regions |
+| Desktop floating chat | 56 × 56px control in centered 120 × 120px outer slot | Present only when explicitly part of the scenario/runtime; absent in D3 |
+| Mobile floating chat | 56 × 56px control in 88 × 88px slot with 16px inset | Mobile/Home 393px reference; do not auto-inherit to other page types |
+
+Existing Section 14 interaction states and Section 18 accessibility requirements still apply. Static frame measurements do **not** prove hover/focus behavior or authorize source asset copying.
+
+#### 9.6.4 Home Responsive References — Tablet and Mobile
+
+Measured sources: [Tablet/Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=6297-546589), [Mobile/Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-119629), and [Breakpoints–Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3261-299499). These are **Home-only measurements**, not global navigation changes.
+
+| Reference | Navigation / shell | Main behavior |
+|---|---|---|
+| Tablet 1024px, compact rail ([5912:411981](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-411981)) | Sidebar ≈79.02px, main ≈944.98px | Banner ≈944.98 × 277px. Unlike the generic 72px tablet preference, this measured **Home-only** rail is ≈79px. |
+| Tablet 1024px, full sidebar ([5912:408868](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-408868)) | Sidebar 200px, main 824px | Banner 824 × 277px. Both sidebar variants appear in the design; do not invent which runtime condition selects them. |
+| Mobile 393px, tall reference ([3185:128069](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-128069)) | **Top navigation 393 × 64px**, **bottom navigation 393 × 92px**, no persistent desktop sidebar | 365 × 150px banner within 393 × 182px hero slot. Bottom navigation inner row 361 × 60px with 16px inset; menu glyphs 20px. Floating-chat slot 88 × 88px. |
+| Mobile 393px, shorter reference ([3185:129245](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-129245)) | Same top/bottom bars | 393 × 852px viewport sample; content geometry continues beyond visible frame. Screen height is not the fixed content height. |
+
+**Precedence:** The measured Mobile/Home navigation uses the bottom bar, **not a permanently displayed 280px drawer**. The 280px drawer in Section 13 remains a generic operational option unless separately authorized for Home. The 1024px Home rail is approximately 79px even though the generic tablet preference is 72px. Preserve the original global rules for non-Home pages.
+
+**QA boundary:** Home screen geometry has now been inspected at **1440px, 1024px, 393px**. Widths between and outside these references, component state variants, runtime behaviors and real-browser clipping/accessibility still need QA. Use fluid layout and wrapping without claiming pixel-perfect parity at unmeasured widths. Effective mobile touch targets remain at least 44px despite smaller displayed menu icons. Privacy-safe skeleton content remains the default.
 
 ### 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
 
-This subsection resolves collisions between generic operational defaults and the documented Desktop/Home page exception **using this repository's existing canonical contracts only**. No live Figma data, external design fetch or content inference is authorized.
+This subsection resolves generic operational defaults against the Home variants documented in Sections 9.6.1–9.6.4. Read-only Figma measurements were recorded here as **geometry evidence**; AI generating UI from DESIGN.md must not retrieve external business copy or assets or treat screenshots as content permission.
 
 | Priority | Applies to | Canonical rule | Conflict resolution |
 |---|---|---|---|
 | 1 | All pages | Sections 4–5 and 20 data/content privacy boundary | Never override privacy with a screenshot, a component name or an illustrative demo. |
 | 2 | Home Desktop at 1440 reference | Section 9.6 Home component geometry, white main surface, #E2EFFF summary cards, 292px search and 16/24 navigation label when approved runtime chrome exists | **Overrides** generic operational card/search/navigation defaults only inside the explicit Home scope. |
 | 3 | Operational/listing pages | Sections 2, 3, 6, 8, 9.1–9.3, 11 | Use #F0F6FF main background, white operational cards, 370px operational search and calibrated table density. Never inherit Home hero or Home support widgets. |
-| 4 | Tablet/mobile or missing page contract | Section 13 responsive behavior plus nearest documented shared token | Do not transfer Desktop/Home pixel measurements to smaller screens, claim parity, or invent page-specific components. |
+| 4 | Tablet/mobile or missing page contract | For Home at measured 1024px/393px use §9.6.4; otherwise use §13 and applicable shared tokens | Do not transfer Home-only dimensions to other pages, invent missing states, or claim parity at unmeasured widths. |
 
 Rules for AI adapters and machine-readable exports:
 
 - Select the **page type** before applying geometry, surface, typography or loading mode. An unqualified global "standard card" statement means the operational/listing default, not a command to erase the Home variant.
 - Design-only output remains `privacy-safe-skeleton` even on Home; `loading-skeleton` is reserved for approved runtime chrome and content boundaries.
-- Section 9.6 loading placeholder heights are representative/reference observations from an earlier independent audit; do not treat any list as a universal sizing scale, and do not claim unverified tablet/mobile visual parity.
+- Loading placeholder heights in §9.6 remain Desktop/Home reference examples, not universal sizing tokens. The newly documented Tablet/Home 1024px and Mobile/Home 393px measurements do not certify all intermediate widths, interaction states or other page types.
 - The machine-readable `contracts/page-profiles.json` and `contracts/approved-baseline.json` are QA/index artifacts; Section 9.6 and this precedence table remain the canonical authority.
 
 -----
@@ -1709,8 +1764,7 @@ Component reuse rule:
 
 ## 13. Responsive Rules
 
-The calibrated source screens define desktop behavior only. Tablet/mobile behavior below is
-an implementation adaptation and MUST preserve the desktop component anatomy and typography hierarchy.
+The operational/listing baseline remains desktop-first and the shared rules below remain its responsive fallback. Home-specific Tablet 1024px and Mobile 393px evidence is now documented in §9.6.4; when it differs from generic rail/drawer guidance, **the explicitly scoped Home reference wins** without changing non-Home page contracts.
 
 ### 13.1 Responsive Sidebar Behavior
 
@@ -1739,6 +1793,8 @@ responsive-sidebar-behavior:
     animation: slide-left
 ```
 
+**Home exceptions:** At the inspected 1024px Home width, Figma shows ≈79.02px compact and 200px full sidebar variants, not one universal 72px rail. At 393px Home, Figma shows 64px top navigation and a 92px bottom bar rather than a permanently visible 280px drawer. Use §9.6.4 for these references; the generic fallback remains for other pages.
+
 ### 13.2 Responsive Main Pane
 
 ```yaml
@@ -1762,9 +1818,11 @@ responsive-main-pane:
 - Search/filter controls may wrap, but remain 40px high.
 - Header title remains 32/42 where space permits; on very narrow mobile widths, use the nearest defined heading token rather than arbitrary scaling.
 
+**Home Banner adaptation:** At the measured 1024px Tablet/Home reference, the full-sidebar banner is 824 × 277px with a 24/30px heading. At the 393px Mobile/Home screen reference, the banner is 365 × 150px with a 20/30px heading. Do not scale the 1240px/40-46 desktop hero unchanged, and do not confuse the standalone banner specimen's 20/24px heading with the Mobile/Home screen variant (§9.6.2).
+
 ### 13.4 Mobile Interaction Rules
 
-- Drawer overlays content and closes after navigation.
+- If a page uses the **generic drawer**, it overlays content and closes after navigation. At the documented 393px Home reference use the scoped top/bottom navigation instead; do not show the drawer and bottom bar together by default.
 - Touch targets for primary actions should be at least 44px even if the desktop visual button is 40px; add hit-area padding without visually enlarging the control when possible.
 - Keep the mobile drawer skeleton-only unless explicit runtime navigation data is supplied.
 - Do not force the desktop 1080px main pane onto mobile.
@@ -2321,8 +2379,8 @@ When in doubt:
 
 ## 27. Known Gaps
 
-- The general operational reference remains desktop-first at 1280x768; the additional Desktop/Home profile in Section 9.6 is measured at 1440px only. Tablet/mobile behavior needs independent Figma inspection and QA.
-- Some shared components expose additional variants not represented in the calibrated screens; do not infer undocumented visual variants from names alone. Search/sidebar variants for non-Home pages are unchanged pending their own Figma audit.
+- The general operational reference remains desktop-first at 1280×768. Section 9.6 now includes measured Home geometry at **1440px Desktop, 1024px Tablet and 393px Mobile**. Other breakpoints, additional nested scenarios, actual interaction and browser behavior still require QA.
+- The primary five Desktop/Home screen instances, observed banner/icon/image anatomy and Tablet/Mobile Home variants are indexed in §9.6.1–9.6.4, but not all nested scenarios and interactive component states are certified. Non-Home search/sidebar rules remain unchanged until their own audit.
 - Exact image/avatar/content data is runtime product data and remains skeletonized or absent in design-only output.
 - Motion timing is normalized by Section 14 because the static reference does not establish animation timing.
 - Webfont delivery still depends on approved DB webfont files and valid web-embedding rights.
