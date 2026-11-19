@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "name": "AH Design System",
+  "version": "2.6",
+  "revision": "2026-11-19-home-figma-alignment",
+  "status": "documented-with-open-audit-gaps",
+  "repository": "kreecrypto/AH-Design",
+  "sourceOfTruth": {
+    "path": "docs/AH_DESIGN_v2.6.md",
+    "gitBlobSha": "81badc083ac1ef8bf7f292d189a1a153a02e9f80"
+  },
+  "entrypoints": {
+    "tokens": "tokens/ah-tokens.json",
+    "css": "tokens/ah-tokens.css",
+    "components": "contracts/components.json",
+    "layouts": "contracts/layouts.json",
+    "policies": "contracts/policies.json",
+    "agentInstructions": "AGENTS.md",
+    "agentSkill": "skills/ah-design-system/SKILL.md",
+    "mcp": "integrations/mcp/server.mjs",
+    "integrationGuide": "docs/AI_INTEGRATION.md"
+  },
+  "defaultContentMode": "privacy-safe-skeleton",
+  "limitations": [
+    "Private GitHub repository; authorized account/connector or local clone required",
+    "Local MCP server is not a hosted public service",
+    "HTML Mock Data demo is synthetic and not pixel-identical Figma Home",
+    "Outstanding independent audit findings remain"
+  ]
+}

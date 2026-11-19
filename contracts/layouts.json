@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0",
+  "version": "2.6",
+  "canonical": "docs/AH_DESIGN_v2.6.md",
+  "breakpointsPx": {
+    "wide": 1440,
+    "desktop": 1280,
+    "tablet": 1024,
+    "mobile": 768
+  },
+  "shell": {
+    "desktop": {
+      "viewportBaselinePx": 1280,
+      "sidebarPx": 200,
+      "fluidMain": true,
+      "gutterPx": 16
+    },
+    "tablet": {
+      "minPx": 768,
+      "maxPx": 1279,
+      "sidebar": "icon rail ~72px or drawer"
+    },
+    "mobile": {
+      "maxPx": 767,
+      "sidebar": "280px overlay drawer",
+      "default": "closed",
+      "gutterPx": 16
+    }
+  },
+  "pages": {
+    "home": {
+      "referenceViewportPx": 1440,
+      "sourceSection": "9.6",
+      "homeOnly": true
+    },
+    "listingA": {
+      "sourceSection": "11.1",
+      "baselinePx": 1280,
+      "summaryWidthsPx": [
+        467,
+        342,
+        223
+      ],
+      "gapPx": 8,
+      "tableCardWidthPx": 1048,
+      "tableRowPx": 44
+    },
+    "listingB": {
+      "sourceSection": "11.2",
+      "baselinePx": 1280,
+      "summaryWidthsPx": [
+        640,
+        400
+      ],
+      "gapPx": 8,
+      "tableCardWidthPx": 1048,
+      "tableRowPx": 48
+    }
+  },
+  "warnings": [
+    "No tablet/mobile Figma parity claim",
+    "Do not hard-code 1240px as a fixed main pane"
+  ]
+}

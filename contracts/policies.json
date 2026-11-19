@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0",
+  "version": "2.6",
+  "canonical": "docs/AH_DESIGN_v2.6.md",
+  "defaultMode": "privacy-safe-skeleton",
+  "modes": {
+    "privacy-safe-skeleton": {
+      "requiresApprovedRuntimeData": false,
+      "readableBusinessData": false,
+      "readableNavigation": false,
+      "semanticNavigationIcons": false,
+      "defaultForDesignOnly": true
+    },
+    "runtime-loading-skeleton": {
+      "requiresApprovedRuntimeData": true,
+      "approvedStaticChromeOnly": true,
+      "fallback": "privacy-safe-skeleton"
+    },
+    "synthetic-demo": {
+      "requiresExplicitDemoRequest": true,
+      "fictionalContentOnly": true,
+      "separateFromDesignContracts": true,
+      "productionReady": false
+    }
+  },
+  "precedence": [
+    "Canonical Markdown takes priority over machine indexes",
+    "Apply explicit Home-only variations only on Home; preserve operational defaults",
+    "When a global rule conflicts with a Home-specific rule, scope the exception and report ambiguity rather than silently inventing a rule",
+    "Figma designs never authorize copying business/customer data"
+  ],
+  "knownGaps": [
+    "Global default wording versus Home-specific surface requires explicit scoping",
+    "Home skeleton documentation lists selected example heights, not every observed height",
+    "Other Figma scenarios and mobile/tablet remain unverified"
+  ]
+}

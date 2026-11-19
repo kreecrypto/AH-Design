@@ -1,3 +1,18 @@
+# AH Design System v2.6 — AI-ready
+
+**[Canonical Design System](docs/AH_DESIGN_v2.6.md)** · [Machine entrypoint](design-system.json) · [AI connection guide](docs/AI_INTEGRATION.md) · Private Repository
+
+This project now provides structured design tokens and contracts for AI tools alongside its existing synthetic HTML demo. AI must have authorized GitHub access, or use the local read-only MCP server. Neither a remote API nor a public hosting endpoint is deployed.
+
+- [AI rules](AGENTS.md) and [Agent Skill](skills/ah-design-system/SKILL.md)
+- [Tokens (CSS)](tokens/ah-tokens.css) and [Tokens (JSON)](tokens/ah-tokens.json)
+- [Component contracts](contracts/components.json), [Layouts](contracts/layouts.json), [Privacy policy](contracts/policies.json)
+- [Local MCP server](integrations/mcp/server.mjs) and [Validation CI](.github/workflows/design-system-validate.yml)
+
+Default generation mode is **privacy-safe-skeleton**. Home-specific measurements are scoped to Desktop/Home only. Unresolved audit gaps remain documented.
+
+---
+
 # AH Design v2.6 — Interactive Mock Data Demo
 
 A standalone UX/UI demonstration built **only** from the user-supplied `AH_DESIGN_v2.6(2).zip` (source: `AH_DESIGN_v2.6.md`). No legacy design-system components are imported.

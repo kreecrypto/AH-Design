@@ -1,0 +1,266 @@
+{
+  "schemaVersion": "1.0",
+  "system": "AH Design",
+  "version": "2.6",
+  "canonical": "docs/AH_DESIGN_v2.6.md",
+  "notes": [
+    "Machine-readable index only; canonical Markdown remains authoritative.",
+    "Desktop/Home geometry is Figma-measured at 1440px only.",
+    "Independent audit identifies unresolved Home/global wording and additional loading placeholder heights. Do not invent missing contracts."
+  ],
+  "components": [
+    {
+      "id": "app-shell",
+      "section": "3",
+      "scope": "shared",
+      "geometry": {
+        "desktopBaselinePx": 1280,
+        "sidebarPx": 200,
+        "mainPanePx": 1080,
+        "mainPaneWidth": "calc(100vw - 200px)",
+        "gutterPx": 16
+      },
+      "surfaces": {
+        "operational": "var(--ah-app-bg)",
+        "home": "var(--ah-canvas)"
+      }
+    },
+    {
+      "id": "sidebar",
+      "section": "4",
+      "scope": "shared",
+      "geometry": {
+        "desktopWidthPx": 200,
+        "itemSlotHeightPx": 32,
+        "groupGapPx": 24,
+        "headerHeightPx": 64
+      },
+      "variants": {
+        "operationalLabel": {
+          "sizePx": 20,
+          "lineHeightPx": 28,
+          "weight": 400
+        },
+        "homeApprovedRuntimeLabel": {
+          "sizePx": 16,
+          "lineHeightPx": 24,
+          "weight": 400,
+          "font": "DB Helvethaica X 55 Regular"
+        },
+        "privacySafe": {
+          "readableLabels": false
+        }
+      }
+    },
+    {
+      "id": "topbar-search",
+      "section": "6",
+      "scope": "shared",
+      "heightPx": 64,
+      "variants": {
+        "operational": {
+          "widthPx": 370,
+          "inputWidthPx": 270,
+          "heightPx": 40,
+          "gapPx": 20,
+          "actionsWidthPx": 80
+        },
+        "homeDesktop1440": {
+          "widthPx": 292,
+          "inputWidthPx": 200,
+          "heightPx": 40,
+          "gapPx": 12,
+          "actionsWidthPx": 80,
+          "actionsHeightPx": 32
+        }
+      }
+    },
+    {
+      "id": "button",
+      "section": "8.1",
+      "scope": "shared",
+      "radiusPx": 100,
+      "variants": {
+        "medium": {
+          "heightPx": 40,
+          "paddingYpx": 6,
+          "paddingXpx": 16
+        },
+        "xssPrimary": {
+          "heightPx": 28,
+          "paddingYpx": 4,
+          "paddingXpx": 8
+        },
+        "xsGhost": {
+          "heightPx": 24
+        },
+        "xssGhost": {
+          "heightPx": 20
+        }
+      },
+      "states": [
+        "hover",
+        "focus",
+        "active",
+        "disabled"
+      ]
+    },
+    {
+      "id": "kpi-card",
+      "section": "8.2",
+      "scope": "operational",
+      "gridColumns": 4,
+      "gapPx": 16,
+      "minHeightPx": 92,
+      "radiusPx": 8,
+      "fill": "var(--ah-canvas)",
+      "shadow": "none"
+    },
+    {
+      "id": "dashboard-card",
+      "section": "8.3",
+      "scope": "operational",
+      "radiusPx": 12,
+      "paddingPx": 16
+    },
+    {
+      "id": "filter-bar",
+      "section": "8.4",
+      "scope": "operational",
+      "chipHeightPx": 36,
+      "selectHeightPx": 36,
+      "outerBackground": "transparent"
+    },
+    {
+      "id": "enterprise-table",
+      "section": "8.5",
+      "scope": "operational",
+      "cardRadiusPx": 16,
+      "headerHeightPx": 44,
+      "rowHeightCompactPx": 44,
+      "rowHeightComfortablePx": 48,
+      "tabHeightPx": 40,
+      "badgeHeightPx": 20,
+      "headerFill": "var(--ah-app-bg)",
+      "shadow": "none"
+    },
+    {
+      "id": "side-panel",
+      "section": "8.6",
+      "scope": "operational",
+      "widthPx": 320,
+      "cardRadiusPx": 12,
+      "responsive": "below content at tablet/mobile"
+    },
+    {
+      "id": "pagination",
+      "section": "8.7",
+      "scope": "operational",
+      "heightPx": 40,
+      "itemSizePx": 32,
+      "gapPx": 8
+    },
+    {
+      "id": "home-hero",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "widthPx": 1240,
+      "heightPx": 277,
+      "fill": "var(--ah-home-hero-bg)",
+      "titleSizePx": 40,
+      "titleLineHeightPx": 46
+    },
+    {
+      "id": "home-shortcuts",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "widthPx": 1208,
+      "heightPx": 126,
+      "itemApproxWidthPx": 121,
+      "itemHeightPx": 80,
+      "headingSizePx": 24,
+      "captionSizePx": 16,
+      "captionLineHeightPx": 16
+    },
+    {
+      "id": "home-overview",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "widthPx": 1208,
+      "heightPx": 284,
+      "cardWidthPx": 596,
+      "cardHeightPx": 208,
+      "cardGapPx": 16,
+      "cardRadiusPx": 8,
+      "fill": "var(--ah-primary-soft) with 30% white overlay"
+    },
+    {
+      "id": "home-personal",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "widthPx": 1208,
+      "heightPx": 182,
+      "cardWidthPx": 290,
+      "cardHeightPx": 128,
+      "gapPx": 16,
+      "radiusPx": 8,
+      "shadow": "none"
+    },
+    {
+      "id": "home-support",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "tilesWidthPx": 861,
+      "tilesHeightPx": 230,
+      "tileApproxWidthPx": 134,
+      "tileHeightPx": 88,
+      "rightCardWidthPx": 323,
+      "rightCardHeightPx": 334,
+      "rightCardShadow": "var(--ah-home-right-card-shadow)"
+    },
+    {
+      "id": "home-announcement",
+      "section": "9.6",
+      "scope": "home-desktop-1440",
+      "widthPx": 330,
+      "heightPx": 110,
+      "radiusPx": 8
+    },
+    {
+      "id": "home-chat",
+      "section": "9.6",
+      "scope": "home-only",
+      "controlPx": 56,
+      "referenceContainerPx": 120
+    },
+    {
+      "id": "privacy-safe-skeleton",
+      "section": "5.4",
+      "scope": "default-design-only",
+      "base": "var(--ah-surface-muted)",
+      "highlight": "var(--ah-hairline-soft)",
+      "readableBusinessData": false,
+      "readableNavigation": false
+    },
+    {
+      "id": "home-loading-skeleton",
+      "section": "5.4 and 9.6",
+      "scope": "approved-home-runtime-only",
+      "base": "var(--ah-home-loading-base)",
+      "radiusPx": 100,
+      "documentedExampleHeightsPx": [
+        10,
+        18,
+        28
+      ],
+      "extraObservedNotYetCanonicalPx": [
+        8,
+        12,
+        14,
+        16,
+        20,
+        24
+      ]
+    }
+  ]
+}
