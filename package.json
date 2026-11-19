@@ -1,0 +1,17 @@
+{
+  "name": "ah-design-system",
+  "version": "2.6.0",
+  "private": true,
+  "type": "module",
+  "description": "AI-readable design tokens and private local read-only MCP service",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "tokens:sync": "node scripts/sync-tokens.mjs",
+    "tokens:check": "node scripts/sync-tokens.mjs --check",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "mcp": "node integrations/mcp/server.mjs"
+  }
+}
