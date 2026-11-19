@@ -997,3 +997,1164 @@ filter-chip-active:
   background: "{colors.primary}"
   color: "{colors.on-primary}"
   borderColor: "{colors.primary}"
+
+filter-select:
+  height: 36px
+  radius: "{rounded.sm}"
+  border: "1px solid {colors.hairline}"
+  paddingX: 12px
+  background: "{colors.canvas}"
+  color: "{colors.ink-deep}"
+```
+
+Rules:
+
+- Operational listing pages include the shared filter/search geometry when the layout requires it
+- Active chips use primary blue
+- Select inputs use subtle borders
+- Filter chips must include active and focus states
+- “Listing filter bars should not render an additional white container unless explicitly required”
+- “Filter chips may sit directly on app background”
+- “Avoid double-layer surface effect”
+
+## 8.5 Enterprise Data Table
+
+```yaml
+table-enterprise:
+  background: "{colors.canvas}"
+  radius: "{rounded.lg}"
+  shadow: none
+  overflow: hidden
+  outerPadding: "12px 16px 16px"
+  sectionGap: 12px
+
+# Table toolbar/header above tabs and rows
+table-toolbar:
+  height: 40px
+  title:
+    fontSize: 24px
+    fontWeight: 700
+    lineHeight: 30px
+    color: "{colors.ink-deep}"
+  layoutGap: 8px
+
+table-search-filter:
+  width: 344px
+  height: 40px
+  gap: 16px
+  inputWidth: 230px
+  buttonHeight: 40px
+
+table-tabs:
+  height: 40px
+  gap: 8px
+
+table-tab-chip:
+  height: 40px
+  padding: "4px 12px"
+  gap: 8px
+  radius: "{rounded.chip}"
+
+# Data grid density variants
+table-density-variant:
+  default: compact
+  variants:
+    compact:
+      headerHeight: 44px
+      rowHeight: 44px
+      rowPadding: "8px 16px"
+      columnGap: 16px
+      bodyFontSize: 20px
+      bodyLineHeight: 28px
+      bodyWeight: 400
+      headerBackground: "{colors.app-bg}"
+      rowBackground: "{colors.canvas}"
+      alternateRowBackground: "{colors.surface-muted}"
+      alternateRow: optional
+
+    comfortable:
+      headerHeight: 44px
+      rowHeight: 48px
+      rowPadding: "8px 16px"
+      columnGap: 16px
+      bodyFontSize: 20px
+      bodyLineHeight: 28px
+      bodyWeight: 400
+      headerBackground: "{colors.app-bg}"
+      rowBackground: "{colors.canvas}"
+      alternateRowBackground: "{colors.surface-muted}"
+      alternateRow: optional
+
+# Status/source badges inside table rows
+table-badge:
+  height: 20px
+  paddingX: 8px
+  radius: "{rounded.rail}"
+  fontSize: 14px
+  lineHeight: 20px
+  fontWeight: 400
+
+# Header label instance
+header-table-label:
+  height: 28px
+  gap: 4px
+  sortIcon: allowed
+```
+
+### Privacy-safe listing column geometry
+
+Column geometry is design data; semantic column meaning is runtime/product data and must not appear in skeleton-only artifacts.
+
+```yaml
+listing-geometry-a:
+  column-1: 140px
+  column-2: 130px
+  column-3: 130px
+  column-4: 130px
+  column-5: 80px
+  column-6: 100px
+  column-7: 112px
+  column-8: 100px
+  gap: 16px
+
+listing-geometry-b:
+  column-1: 124px
+  column-2: 140px
+  column-3: 140px
+  column-4: 140px
+  column-5: 140px
+  column-6: 100px
+  column-7: 100px
+  column-8: 110px
+  column-9: 94px
+  gap: 16px
+```
+
+### Table rules
+
+- Table card radius = 16px.
+- Table card uses `12px 16px 16px` internal padding and 12px vertical section gap.
+- Header row = 44px with 8px vertical / 16px horizontal padding.
+- Compact body row = 44px; comfortable body row = 48px.
+- Primary body cells use DB `20 / 28 / 400`.
+- Primary/linked values may use primary blue; ordinary body text uses deep ink/ink.
+- Header background uses app background blue (`#f0f6ff`), not dark primary blue.
+- Badges are 20px high with 8px horizontal padding and 1000px radius.
+- No generic card shadow on the table container.
+- Search/filter composite = 344x40 with a 230px input and 40px outline action.
+- Tabs remain 40px high with pill chips.
+- Use horizontal scrolling rather than shrinking calibrated columns below readable width.
+
+-----
+
+## 8.6 Side Panel
+
+```yaml
+side-panel:
+  width: 320px
+  gap: 16px
+
+side-panel-card:
+  background: "{colors.canvas}"
+  border: "1px solid {colors.hairline-soft}"
+  radius: "{rounded.md}"
+  padding: 16px
+  shadow: "{shadows.card}"
+
+side-panel-title:
+  fontSize: 20px
+  fontWeight: 700
+  lineHeight: 28px
+  color: "{colors.ink-deep}"
+
+side-panel-item:
+  background: "{colors.canvas}"
+  border: "1px solid {colors.hairline-soft}"
+  radius: "{rounded.md}"
+  padding: 14px
+```
+
+Rules:
+
+- Desktop operational listing pages may use `1fr + 320px` layout when side panel exists
+- On tablet/mobile, side panel moves below content
+
+## 8.7 Pagination
+
+```yaml
+pagination:
+  height: 40px
+  gap: 8px
+  alignItems: center
+  justifyContent: flex-end
+
+pagination-item:
+  size: 32px
+  radius: "{rounded.sm}"
+  border: "1px solid {colors.hairline}"
+  background: "{colors.canvas}"
+  color: "{colors.ink}"
+
+pagination-item-active:
+  background: "{colors.primary}"
+  color: "{colors.on-primary}"
+  borderColor: "{colors.primary}"
+```
+
+Rules:
+
+- Pagination items must include active, hover, focus, and disabled states
+
+## 8.8 Component Variants Registry
+
+```yaml
+sidebar:
+  variants: [default, compact, drawer]
+
+kpi-card:
+  variants: [default, highlight, compact]
+
+enterprise-table:
+  features: [sticky-header, loading-state, empty-state, pagination, sorting, row-hover]
+
+filter-bar:
+  variants: [listing, dashboard, compact]
+
+modal:
+  sizes: [sm, md, lg, full]
+
+form-input:
+  variants: [default, error, disabled]
+```
+
+## 8.9 Component Reuse Rules
+
+- Never duplicate sidebar markup with different spacing or typography
+- Never create page-specific table styles for shared operational listing pages
+- Never create page-specific button radius
+- Never use decorative gradients, glow effects, or oversized cards
+- If a new page needs a list → use `EnterpriseDataTable` first
+- If a new page needs filters → use `FilterBar` first
+- If a new page needs page actions → use `button-primary` and `button-secondary` first
+
+-----
+
+# 9. Layout System
+
+## 9.1 Page Header Pattern
+
+The calibrated operational screens use the page title inside the 64px topbar/header,
+not a separate oversized marketing header block.
+
+```yaml
+page-header:
+  placement: "inside topbar"
+  height: 64px
+  padding: 16px
+  background: transparent
+  title:
+    fontSize: 32px
+    fontWeight: 700
+    lineHeight: 42px
+    color: "{colors.primary}"
+  contextualChip:
+    optional: true
+    height: 40px
+    radius: "{rounded.chip}"
+  rightComposite:
+    width: 370px
+    height: 40px
+```
+
+Rules:
+
+- Operational/listing pages do not add a second 48px page heading below the topbar.
+- Section/card titles below the topbar use `24 / 30 / 700`.
+- Context chips may sit beside the page title when required.
+- Keep title and search/actions vertically centered within the 64px header.
+
+-----
+
+## 9.2 Layout Density & Rhythm
+
+```yaml
+density-rhythm:
+  mainPaneGutter: 16px
+  majorSectionGap: 16px
+  cardGap: 8px
+  cardPaddingCompact: 12px
+  cardPaddingStandard: 16px
+  tableInternalGap: 12px
+  toolbarGap: 8px
+  navigationGroupGap: 24px
+```
+
+Rules:
+
+- Operational pages use dense 8/12/16px rhythm.
+- Main content blocks sit 16px from main-pane edges.
+- Adjacent summary cards commonly use 8px gaps.
+- Avoid arbitrary 32–48px whitespace between operational sections.
+- Use 24px mainly for navigation grouping, not as the default card gap.
+
+-----
+
+## 9.3 Strict Layout Grid
+
+```yaml
+strict-grid:
+  desktopBaseline:
+    viewport: 1280px
+    sidebar: 200px
+    mainPane: 1080px
+    equation: "200 + 1080 = 1280"
+  mainPane:
+    width: "calc(100vw - 200px)"
+    horizontalGutter: 16px
+  innerContentReference:
+    width: 1048px
+    equation: "1080 - 16 - 16 = 1048"
+  tableInnerReference:
+    width: 1016px
+    equation: "1048 - 16 - 16 = 1016"
+```
+
+### Strict layout constraints
+
+- At 1280px desktop: sidebar = 200px and main pane = 1080px.
+- Main pane fills remaining width on larger desktops; it is not capped at 1240px.
+- Standard page horizontal gutter = 16px.
+- Standard full-width content card at the baseline = 1048px.
+- A 1048px table card with 16px left/right inner padding yields a 1016px working table width.
+- Use Auto Layout / flex/grid relationships; do not hard-code absolute positions for structural page content.
+
+-----
+
+## 9.4 Allowed Shared Sections
+
+These may appear on ANY page:
+
+- Sidebar, Topbar, Page Header, Search
+- KPI Cards, Dashboard Cards, Tables, Charts
+- Filter Bars, Side Panels, Summary Blocks
+- Empty States, Pagination
+
+## 9.5 Forbidden Global Sections
+
+These belong ONLY to Home page. Must NEVER auto-inherit into other pages:
+
+- Hero Banner
+- Shortcut Menu
+- Qualification Section
+- Product-specific side panel
+- Floating Live Chat
+- Home Announcement Card
+- Marketing Cards
+- Gradient Summary Blocks
+
+-----
+
+# 10. Page Type System
+
+```yaml
+page-types:
+  operational-dashboard:
+    density: compact
+    useSummary: true
+    useTable: true
+    useCharts: optional
+    contentModeInMockup: skeleton-only
+
+  operational-listing:
+    density: compact
+    useFilterBar: true
+    useEnterpriseTable: true
+    useSummary: optional
+    useSidePanel: optional
+    contentModeInMockup: skeleton-only
+
+  executive-dashboard:
+    density: comfortable
+    useCharts: true
+    useSummaryCards: true
+    useTable: optional
+    contentModeInMockup: skeleton-only
+
+  detail-page:
+    density: medium
+    useSidePanel: optional
+    useTable: optional
+    contentModeInMockup: skeleton-only
+```
+
+All page types inherit Section 5. Page type selection controls **layout only**, never readable mock content.
+
+-----
+
+# 11. Privacy-Safe Layout Contracts
+
+These contracts retain only calibrated geometry. Names, labels, navigation destinations, business semantics, table meanings, and readable values are deliberately excluded.
+
+## 11.1 Listing Layout A
+
+```yaml
+listing-layout-a:
+  pageType: operational-listing
+  contentMode: skeleton-only
+  desktopBaseline: "1280 = 200 sidebar + 1080 main pane"
+
+  mustUse:
+    - SidebarSkeleton
+    - TopbarSkeleton
+    - SummaryRowSkeleton
+    - EnterpriseDataTableSkeleton
+    - TableTabsSkeleton
+    - SearchFilterSkeleton
+
+  requiredGeometry:
+    topbar: "1080 x 64"
+    summaryRow: "1080 wide with 16px side gutters"
+    summaryRowInternalWidth: 1048px
+    summaryGap: 8px
+    card-a: "467px wide, radius 16"
+    card-b: "342px wide, radius 16"
+    card-c: "223px wide, radius 16"
+    tableCard: "1048px wide, radius 16"
+
+  table:
+    geometry: listing-geometry-a
+    density: compact
+    headerHeight: 44px
+    rowHeight: 44px
+    bodyTypography: "20 / 28 / 400"
+    headerContent: skeleton
+    bodyContent: skeleton
+```
+
+## 11.2 Listing Layout B
+
+```yaml
+listing-layout-b:
+  pageType: operational-listing
+  contentMode: skeleton-only
+  desktopBaseline: "1280 = 200 sidebar + 1080 main pane"
+
+  mustUse:
+    - SidebarSkeleton
+    - TopbarSkeleton
+    - SummaryRowSkeleton
+    - EnterpriseDataTableSkeleton
+    - TableTabsSkeleton
+    - SearchFilterSkeleton
+
+  requiredGeometry:
+    topbar: "1080 x 64"
+    summaryRowInternalWidth: 1048px
+    summaryGap: 8px
+    card-a: "640px wide, radius 16"
+    card-b: "400px wide, radius 16"
+    tableCard: "1048px wide, radius 16"
+
+  table:
+    geometry: listing-geometry-b
+    density: comfortable
+    headerHeight: 44px
+    rowHeight: 48px
+    bodyTypography: "20 / 28 / 400"
+    headerContent: skeleton
+    bodyContent: skeleton
+```
+
+## 11.3 Generic Operational Listing
+
+```yaml
+generic-operational-listing:
+  pageType: operational-listing
+  contentMode: skeleton-only
+  mustUse:
+    - SidebarSkeleton
+    - TopbarSkeleton
+    - EnterpriseDataTableSkeleton
+  mayUse:
+    - SummaryRowSkeleton
+    - SearchFilterSkeleton
+    - TableTabsSkeleton
+    - PaginationSkeleton
+    - SidePanelSkeleton
+  geometry:
+    mainPaneGutter: 16px
+    cardRadius: 16px
+    tableDensity: compact
+```
+
+Rules:
+
+- Layout contracts never authorize readable mock data.
+- Preserve calibrated geometry before adding decoration.
+- Runtime content must be explicitly supplied and display-safe before replacing skeletons.
+
+-----
+
+# 12. Component Architecture Enforcement
+
+## 12.1 Required Shared Components
+
+```yaml
+app-shell:
+  includes: [SidebarSkeleton, MainPane]
+  rules:
+    - "Desktop Sidebar = 200px"
+    - "MainPane fills the remaining width"
+    - "1280px baseline resolves to 1080px MainPane"
+
+page-header:
+  includes: [TitleZone, ContextChip, SearchActionComposite]
+  rules:
+    - "Lives inside 64px topbar"
+    - "Title uses 32 / 42 / 700"
+    - "Search/action composite is 370x40 when present"
+
+summary-card:
+  rules:
+    - "Radius = 16px"
+    - "White surface by default"
+    - "Internal gap generally 8px"
+    - "12px or 16px padding depending on pattern"
+
+accent-card:
+  rules:
+    - "Radius = 16px"
+    - "Only shared card allowed to use primary-to-indigo gradient"
+    - "Gradient = #00008f to #4658fc"
+
+operational-listing:
+  includes:
+    - SearchFilterSkeleton
+    - TableTabsSkeleton
+    - EnterpriseDataTableSkeleton
+  rules:
+    - "Table toolbar and filters = 40px control height"
+    - "Table header = 44px"
+    - "Body row = 44px compact or 48px comfortable"
+    - "Body text = 20 / 28 / 400"
+```
+
+Component reuse rule:
+
+- Reuse existing component anatomy and variants before inventing a visually similar replacement.
+- New components must use the token scale and geometry from Sections 2–9.
+- Component-level exceptions must be documented in the component contract, not as arbitrary page CSS.
+
+-----
+
+# 13. Responsive Rules
+
+The calibrated source screens define desktop behavior only. Tablet/mobile behavior below is
+an implementation adaptation and MUST preserve the desktop component anatomy and typography hierarchy.
+
+## 13.1 Responsive Sidebar Behavior
+
+```yaml
+responsive-sidebar-behavior:
+  desktop:
+    minWidth: 1280px
+    behavior: fixed-full-sidebar
+    width: 200px
+    skeletonLabels: visible
+
+  tablet:
+    minWidth: 768px
+    maxWidth: 1279px
+    behavior: icon-rail-or-drawer
+    preferredWidth: 72px
+    skeletonLabels: hidden
+    tooltip: forbidden-in-skeleton-mode
+
+  mobile:
+    maxWidth: 767px
+    behavior: drawer
+    defaultState: closed
+    overlay: true
+    width: 280px
+    animation: slide-left
+```
+
+## 13.2 Responsive Main Pane
+
+```yaml
+responsive-main-pane:
+  desktop:
+    width: "calc(100vw - 200px)"
+    gutter: 16px
+  tablet:
+    width: "remaining viewport after rail/drawer"
+    gutter: 16px
+  mobile:
+    width: "100vw"
+    gutter: 16px
+```
+
+## 13.3 Responsive Content
+
+- Summary rows may wrap from multi-column to 2-column and then 1-column.
+- Preserve 16px card radius and 8–16px internal spacing.
+- Tables use horizontal scrolling before reducing the 20px body typography below the defined scale.
+- Search/filter controls may wrap, but remain 40px high.
+- Header title remains 32/42 where space permits; on very narrow mobile widths, use the nearest defined heading token rather than arbitrary scaling.
+
+## 13.4 Mobile Interaction Rules
+
+- Drawer overlays content and closes after navigation.
+- Touch targets for primary actions should be at least 44px even if the desktop visual button is 40px; add hit-area padding without visually enlarging the control when possible.
+- Keep the mobile drawer skeleton-only unless explicit runtime navigation data is supplied.
+- Do not force the desktop 1080px main pane onto mobile.
+- Horizontal table scroll is preferred over destructive column compression.
+
+-----
+
+# 14. State & Interaction System
+
+## 14.1 Interaction States
+
+```yaml
+states-required:
+  hover:
+    transition: "160ms ease"
+    opacity: 0.96
+  active:
+    transform: "scale(0.99)"
+  focus:
+    outline: "2px solid {colors.primary}"
+    outlineOffset: "2px"
+  disabled:
+    opacity: 0.5
+    cursor: "not-allowed"
+    pointerEvents: "none"
+```
+
+### Required state coverage
+
+- Buttons: hover, active, focus, disabled
+- Filter chips: active, focus
+- Sidebar items: hover, active, selected
+- Table rows: hover only (no active scale)
+- Search input: focus ring without adding border in default state
+- Pagination items: active, hover, focus, disabled
+
+## 14.2 Loading / Empty / Error States
+
+```yaml
+loading-state:
+  skeletonRadius: 8px
+  shimmerOpacity: 0.12
+
+empty-state:
+  iconSize: 48px
+  spacing: 16px
+  align: center
+  paddingY: 64px
+  background: "{colors.canvas}"
+  title:       { fontSize: 20px, fontWeight: 700, lineHeight: 28px, color: "{colors.ink-deep}" }
+  description: { fontSize: 14px, fontWeight: 400, lineHeight: 20px, color: "{colors.slate}", maxWidth: 420px }
+
+error-state:
+  border: "1px solid #ffe0e0"
+  background: "#fff7f7"
+  radius: 12px
+```
+
+Rules:
+
+- Prefer skeleton loading over spinner
+- Empty states must stay minimal — no illustration-heavy visuals
+- Error cards stay compact
+- Avoid modal-only errors
+- Every listing page must support empty state
+
+## 14.3 Data States Contract
+
+```yaml
+data-states:
+  loading: skeleton
+  success: visible
+  empty: empty-state
+  error: compact-error-card
+  restricted: permission-card
+```
+
+Rules:
+
+- Every table must support loading state
+- Every operational listing must support empty state
+- Permission denied state uses neutral background
+
+## 14.4 Motion System
+
+```yaml
+motion:
+  durationFast: 120ms
+  durationNormal: 180ms
+  durationSlow: 260ms
+  easingStandard: ease-out
+  easingInOut: ease-in-out
+```
+
+### Allowed motion
+
+- fade
+- slide-up
+- slide-left
+- subtle scale (scale-soft)
+- opacity hover
+
+### Forbidden motion
+
+- bounce
+- elastic
+- heavy parallax
+- distracting animation
+
+### Interaction motion
+
+- Hover: opacity
+- Active: scale 0.99
+- Focus: subtle transition
+
+-----
+
+# 15. Chart System
+
+```yaml
+chart-system:
+  chartHeight: 320px
+  chartRadius: 12px
+  chartPadding: 16px
+  chartLegendGap: 12px
+
+chart-colors:
+  primary: "#00008f"
+  secondary: "#5b8def"
+  success: "#17663a"
+  warning: "#f2a918"
+  critical: "#e3000a"
+  neutral: "#dfe7f5"
+
+chart-grid:
+  stroke: "#edf1f7"
+  strokeWidth: 1
+
+chart-axis:
+  fontSize: 12px
+  color: "#606776"
+
+chart-tooltip:
+  background: "#ffffff"
+  border: "1px solid #eceded"
+  radius: 12px
+  shadow: "0px 4px 8px rgba(150,167,214,0.15)"
+```
+
+Rules:
+
+- Charts use white surface
+- Avoid gradients
+- Avoid colorful dashboards
+- Primary blue is the primary data series color
+- Use subtle gridlines
+- Use compact legends
+- Gauge charts: chart center-aligned in the card; supporting numbers below the chart, not inside separate mini cards unless required
+
+-----
+
+# 16. Form System
+
+```yaml
+form-input:
+  height: 40px
+  radius: "{rounded.circle}"
+  border: "1px solid {colors.field-border}"
+  padding: "8px 12px"
+  background: "{colors.canvas}"
+  fontSize: 16px
+  lineHeight: 24px
+
+form-label:
+  fontSize: 16px
+  fontWeight: 400
+  lineHeight: 24px
+  color: "{colors.slate}"
+
+form-search-input:
+  height: 40px
+  radius: "{rounded.circle}"
+
+form-textarea:
+  minHeight: 120px
+  radius: 12px
+  padding: 12px
+
+form-section:
+  gap: 16px
+  marginBottom: 24px
+
+form-helper:
+  fontSize: 14px
+  lineHeight: 20px
+  color: "{colors.slate}"
+
+form-error:
+  fontSize: 14px
+  lineHeight: 20px
+  color: "{colors.critical}"
+```
+
+Rules:
+
+- Standard single-line controls are 40px high.
+- Search/filter fields use pill geometry where the component pattern calls for it.
+- Default field border uses `#cccccc`; focus state uses primary blue.
+- Avoid input shadows.
+- Labels remain visible and semantically associated with inputs.
+
+-----
+
+# 17. Performance Tracking Pattern
+
+Performance-oriented mockups preserve geometry only; metric names, values, targets, labels, and statuses are runtime data and remain skeletonized.
+
+```yaml
+performance-tracking-card:
+  background: "#ffffff"
+  border: "1px solid #eceded"
+  radius: 16px
+  padding: 14px
+
+performance-progress:
+  height: 10px
+  radius: 999px
+  background: "#eaf1fb"
+
+performance-skeleton:
+  label: skeleton
+  metric: skeleton
+  comparison: skeleton
+  progress: neutral-placeholder
+  status: unlabeled-pill
+```
+
+Rules:
+
+- Do not render readable metric names or values in design-only mode.
+- Do not infer target/status terminology.
+- Preserve card, progress, and hierarchy geometry with skeleton blocks only.
+
+-----
+
+# 18. Accessibility
+
+```yaml
+a11y:
+  minimumContrast: "4.5:1"
+  focusVisible: true
+  keyboardNavigation: required
+  semanticHTML: required
+
+focus-ring:
+  color: "{colors.primary}"
+  width: 2px
+  offset: 2px
+```
+
+Rules:
+
+- Buttons must be real `<button>` elements
+- Inputs require labels
+- Interactive icons need accessible names (aria-label)
+- Tables must use semantic table elements
+- Focus ring uses primary blue, 2px width, 2px offset
+- Heading order must be logical
+- All controls keyboard accessible
+
+-----
+
+# 19. Implementation Mapping & Anti-Drift
+
+This section defines how the standalone Design System maps into implementation.
+No external design file, node, URL, or design-tool reference is required at runtime.
+This document is authoritative.
+
+## 19.1 Naming Convention
+
+```yaml
+ah-naming:
+  componentPattern: "AH / Category / Component"
+  pagePattern:      "AH / Pages / Page Name"
+  tokenPattern:     "AH / Tokens / Category"
+```
+
+## 19.2 Implementation Mapping Rules
+
+- Design section → semantic HTML section/component.
+- Auto-layout relationships → CSS flex/grid before absolute positioning.
+- Component states/variants → component props or state classes.
+- Token names map to canonical CSS variables.
+- Shared component contracts override page-local styling.
+- Page contracts may specialize layout only where explicitly allowed.
+
+## 19.3 Design Rule Preservation
+
+Preserve:
+
+- DB web-first font priority and the `55 Regular` / `75 Bd` weight mapping.
+- 1280 desktop baseline with 200px sidebar and 1080px main pane.
+- 16px main-pane gutters.
+- 32/42 page title and 24/30 section title hierarchy.
+- 20/28 primary table/nav content typography.
+- 40px controls/tabs, 44px table header, 44/48px table body rows.
+- 16px operational card radius.
+- component variants, responsive behavior, interaction states, and sidebar skeleton privacy mode.
+
+## 19.4 Visual Matching Priority
+
+- Prioritize visual conformity to this Design System over generic dashboard conventions.
+- Preserve calibrated density before adding whitespace.
+- Standard cards are white on the light-blue app background.
+- Primary blue is used deliberately for title/selection/action/link emphasis.
+- The primary-to-indigo gradient is reserved for the documented accent summary-card variant.
+
+## 19.5 Anti-Drift Rules
+
+- No 48px operational page titles.
+- No fixed 1240px inner content canvas.
+- No 40px sidebar rows; desktop sidebar menu rows are 32px.
+- No 56px compact table rows; compact = 44px, comfortable = 48px.
+- No 14px primary table body typography; primary cells use 20/28 unless a specific compact subcomponent says otherwise.
+- No generic gradients; only the documented accent summary-card gradient exception is allowed.
+- No dark-blue table header fill; table header uses app-bg.
+- No card shadow on enterprise table containers.
+- No alternate font family when approved DB webfont or supported local DB font is available.
+- No readable or semantic protected content anywhere in design-only mockups; all data-bearing regions use skeletons.
+- Do not invent new radii/colors/shadows outside the token set unless a new contract is explicitly added.
+
+-----
+
+# 20. Runtime Content Boundary
+
+Role names, permission names, team names, visibility rules, navigation destinations, workflow names, and domain content are **runtime/product data**, not design-system content.
+
+```yaml
+runtime-content-boundary:
+  designOnlyMockup:
+    roleData: skeleton-or-absent
+    permissionData: skeleton-or-absent
+    teamData: skeleton-or-absent
+    workflowData: skeleton-or-absent
+    navigationData: skeleton-or-absent
+  runtimeBinding:
+    requiresExplicitDisplaySafeInput: true
+    inferFromDesign: false
+```
+
+The Design System defines geometry and visual states only. It must never invent or preserve readable role/permission/business content in a privacy-safe mockup.
+
+-----
+
+# 21. AI Design Runtime
+
+## 21.1 Render Pipeline
+
+1. Load tokens
+1. Load layout shell
+1. Load component registry
+1. Resolve explicit runtime visibility only when display-safe runtime data exists
+1. Render page contract
+1. Apply responsive rules
+1. Apply interaction states
+
+## 21.2 Runtime Rules
+
+- All pages must consume token variables only
+- Shared components required before custom component creation
+- Layout engine uses a 200px desktop sidebar and fluid remaining main pane; 1080px at the 1280px baseline
+- Sidebar container locked to 200px; mockup content uses privacy-safe skeleton placeholders
+- Enterprise density required
+
+## 21.3 AI Enforcement
+
+- Prevent generic SaaS layouts
+- Prevent oversized spacing
+- Prevent inconsistent typography
+- Prevent mixed KPI styles
+
+-----
+
+# 22. AI Generation Rules
+
+The AI generator must follow these when emitting HTML/React:
+
+1. Default design-only output to **full-data skeleton mode**.
+2. Render the 200px `SidebarSkeleton` before the MainPane; never infer navigation content.
+3. At 1280px viewport width, MainPane resolves to 1080px; on wider desktop it fills remaining width.
+4. Use 16px horizontal main-pane gutters; do not create a fixed 1240px wrapper.
+5. Use the DB web-first font policy from Section 2.4.
+6. Preserve the typography hierarchy as **skeleton slot heights**: page-title slot 32/42, section-title slot 24/30, body slot 20/28.
+7. Topbar = 64px high with 16px padding; right control composite = 370x40 when used.
+8. Desktop sidebar skeleton row slot = 32px; generic skeleton groups use 24px separation.
+9. Standard operational card radius = 16px.
+10. White operational cards sit on `#f0f6ff` app background.
+11. The documented accent summary card is the only generic shared gradient surface.
+12. Search/filter/button/tab shells use 40px desktop height unless a documented compact variant applies.
+13. Enterprise table card uses 16px radius and no shadow.
+14. Table header = 44px with `#f0f6ff` background.
+15. Compact table row = 44px; comfortable row = 48px.
+16. Table badge skeleton = 20px high, 8px horizontal padding, 1000px radius.
+17. Reuse calibrated generic column widths when a layout contract provides them.
+18. Use existing shared component anatomy before creating replacements.
+19. All interactive components require hover, focus, active, and disabled behavior where applicable.
+20. In skeleton-only output, replace readable page/card/table/form/chart/button content with neutral skeleton placeholders.
+21. In skeleton-only output, do not render real or invented names, values, IDs, dates, financials, phone numbers, statuses, routes, labels, column names, role names, permission names, workflow names, or product terms.
+22. Do not leak protected content through hidden text, comments, `data-*`, `id`, class names, `title`, `aria-label`, `alt`, hrefs, JavaScript constants, arrays, or object keys.
+23. Use neutral non-semantic icon placeholders when a semantic icon or icon name could expose protected workflow meaning.
+24. Readable runtime content may replace skeletons only when explicitly supplied as display-safe input.
+25. Do not narrate these rules in generated UI output unless the user asks for an audit.
+
+-----
+
+# 23. Silent Design Application Rule
+
+Apply this DESIGN silently. In design-only/mockup mode every generated page must satisfy:
+
+- `contentMode = skeleton-only`.
+- Sidebar = 200px desktop and contains only neutral skeleton placeholders.
+- Main pane = remaining viewport width; 1080px at the 1280px baseline.
+- Main-pane horizontal gutter = 16px.
+- Topbar = transparent, 64px high, 16px padding.
+- Readable page title is absent; preserve its 32/42 hierarchy with a skeleton title slot.
+- Readable section/card/table titles are absent; preserve 24/30 hierarchy with skeleton bars.
+- Search, filter, button, tab, badge, chart, form, and table content are skeletonized.
+- Standard desktop control shell = 40px unless a documented compact variant applies.
+- Standard operational card radius = 16px.
+- Standard cards are white on `#f0f6ff` app background.
+- Accent summary gradient is allowed only on the documented accent-card variant; its content is still skeletonized.
+- Enterprise table header = 44px with `#f0f6ff` background.
+- Enterprise table row = 44px compact or 48px comfortable.
+- Enterprise table shadow = none.
+- Table header labels and body values are skeletons only.
+- Table badge = unlabeled 20px pill skeleton.
+- No real or invented product/business/customer/navigation/role/permission data exists anywhere in source or rendered UI.
+- Use generic structural names only; no protected meaning in DOM attributes, comments, scripts, or icon names.
+- Home-only sections do not auto-inherit into operational pages.
+- Keep density operational and compact; do not introduce marketing-style whitespace or hero typography.
+
+-----
+
+# 24. HTML Generation Checklist
+
+Before delivering generated UI, verify:
+
+```yaml
+html-generation-checklist:
+  privacy:
+    - "Full-data skeleton mode is active for design-only output"
+    - "No readable page/card/table/form/chart/button business content"
+    - "No real or invented personal, product, workflow, status, financial, date, phone, ID, role, permission, navigation, or column data"
+    - "No protected content in comments, title, aria-label, alt, id, class names, data attributes, hrefs, or JavaScript constants"
+    - "Content-bearing semantic icons are replaced by neutral placeholders when needed"
+
+  font:
+    - "DB webfont is attempted before local DB fallback when approved webfont assets exist"
+    - "55 Regular maps to weight 400"
+    - "75 Bd maps to weight 700"
+
+  shell:
+    - "Desktop sidebar width = 200px"
+    - "1280px baseline main pane = 1080px"
+    - "Main content horizontal gutter = 16px"
+
+  topbar:
+    - "Height = 64px"
+    - "Padding = 16px"
+    - "Readable title replaced by skeleton title slot"
+    - "Right control composite geometry preserved without protected semantics"
+
+  sidebar:
+    - "Skeleton-only"
+    - "Row slot = 32px; generic group separation = 24px"
+    - "No labels/routes/keys/selected destination/semantic navigation icons"
+
+  cards:
+    - "Standard operational card radius = 16px"
+    - "Standard cards are white"
+    - "All labels/values are skeletons"
+
+  controls:
+    - "Standard desktop shell height = 40px"
+    - "No readable control copy in skeleton mode"
+
+  tables:
+    - "Table card radius = 16px"
+    - "Table card has no shadow"
+    - "Table header = 44px and #f0f6ff"
+    - "Compact row = 44px; comfortable row = 48px"
+    - "Header labels and body values are skeletons"
+    - "Badges are unlabeled 20px skeleton pills"
+
+  drift:
+    - "No 1240px fixed inner canvas"
+    - "No 48px operational page-title geometry"
+    - "No 56px compact rows"
+    - "No generic gradient backgrounds"
+```
+
+If any required check fails, correct the implementation before delivery.
+
+-----
+
+# 25. AI Correction Rules
+
+When a generated page does not match the design, fix in this order:
+
+1. Layout shell — sidebar, topbar, content width
+1. Typography scale
+1. Spacing rhythm
+1. Table density
+1. Colors and borders
+1. Interaction states
+1. Remove any readable or semantic protected content from design-only mockups immediately
+1. Remove any inherited Home-only sections immediately
+1. Prefer deleting extra decorative UI over adding more UI
+1. Keep output dense, operational, and Design-System-consistent
+1. Do not explain these corrections in the generated UI
+
+-----
+
+# 26. Final Design Principle
+
+AI Design UI must feel:
+
+- enterprise
+- operational
+- compact
+- readable
+- domain-neutral in design-only skeleton mode
+- Design-System-faithful
+- not decorative
+- not generic SaaS
+
+When in doubt:
+
+- prefer white surfaces
+- prefer subtle borders
+- prefer compact spacing
+- prefer clear hierarchy
+- avoid visual noise
+
+-----
+
+# 27. Known Gaps
+
+- The calibrated reference set is desktop-first at 1280x768; tablet/mobile behavior is an implementation adaptation and must be QA-tested separately.
+- Some shared components expose additional variants not represented in the calibrated screens; do not infer undocumented visual variants from names alone.
+- Exact image/avatar/content data is runtime product data and remains skeletonized or absent in design-only output.
+- Motion timing is normalized by Section 14 because the static reference does not establish animation timing.
+- Webfont delivery still depends on approved DB webfont files and valid web-embedding rights.
