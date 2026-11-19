@@ -34,7 +34,7 @@ No setup, design-tool connection, or MCP server is required to use the single Ma
 | Enterprise table | 44px compact rows / 48px comfortable rows |
 | Design-only content | Privacy-safe skeleton by default |
 
-**Source of truth:** [`docs/AH_DESIGN_v2.6.md`](docs/AH_DESIGN_v2.6.md). The root `DESIGN.md` is a byte-identical, automatically checked copy. Home-specific rules apply only to their documented scope.
+**Source of truth:** [`docs/AH_DESIGN_v2.6.md`](docs/AH_DESIGN_v2.6.md). Both the root `DESIGN.md` and [`design-md/ah-design/DESIGN.md`](design-md/ah-design/DESIGN.md) are byte-identical, automatically checked copies. Home-specific rules apply only to their documented scope.
 
 ### Optional advanced integration
 
