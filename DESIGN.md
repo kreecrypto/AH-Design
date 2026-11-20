@@ -1542,6 +1542,64 @@ Measured sources: [Tablet/Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIu
 
 **QA boundary:** Home screen geometry has now been inspected at **1440px, 1024px, 393px**. Widths between and outside these references, component state variants, runtime behaviors and real-browser clipping/accessibility still need QA. Use fluid layout and wrapping without claiming pixel-perfect parity at unmeasured widths. Effective mobile touch targets remain at least 44px despite smaller displayed menu icons. Privacy-safe skeleton content remains the default.
 
+#### 9.6.5 Mobile/Home Surface and Quick Menu — 393px
+
+Measured [Mobile/Home Figma reference](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-128069): **Mobile/Home root fill is `#F8FAFF`**. This is an explicit **page-scoped value**, not a new global token; operational pages retain `--ah-app-bg: #F0F6FF`, and the documented Desktop/Tablet Home main canvas remains white. Within Mobile/Home, the shortcut and overview panels are **white**, the announcements area returns to `#F8FAFF`, the notice slot is `#F7F7F8`, and summary cards use `#E2EFFF`. Do not repaint every child panel to match the root.
+
+| Mobile-only layer | Observed Figma geometry | Implementation guidance |
+|---|---|---|
+| Top / bottom navigation | 393×64px / 393×92px; bottom inner content 361×60px inset 16px | The measured bottom bar replaces the permanently visible desktop sidebar on this screen |
+| White shortcut section | 393×170px; shortcut inset 16px | Preserve white nested panel on the `#F8FAFF` root |
+| Shortcut component | **361×138px** | Heading 361×30px; tile row y=42px; slider indicator y=134px |
+| Shortcut tile strip | **Ten 95×80px tiles**, arranged x=0,95,190,…,855; total track ≈950px | Keep **361px viewport** and horizontal overflow; never compress/wrap ten tiles into a four-column grid |
+| Icon wrappers | 40×40px, centered at x=27.5px within a 95px tile | Use neutral icons/shapes when actual menu labels are not explicitly allowed |
+| Visual position indicator | **32×4px** track at x=164.5px; first **16×4px** segment in `#00008F`, remaining segment in `#D4D7DD` | Figma confirms visual geometry, not animation or drag behavior |
+
+**Responsive interaction requirement:** Provide accessible horizontal touch/keyboard scrolling or an equivalent reachable control for an implemented carousel. Do not cause document-level horizontal overflow. The 40px icon artwork does not override the ≥44×44px effective interactive hit-area rule. Never infer readable navigation names, item counts for other screens, badge values, or runtime gestures from the static design.
+
+#### 9.6.6 Mobile/Home Stacked Summary — 393px
+
+The [Mobile/Home overview instance](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=3185-128069) has a **361×467.61px** overall component with 16px side inset, replacing the Desktop two-column layout at this reference.
+
+| Overview anatomy | Size / position within component | Rule |
+|---|---|---|
+| Section heading | 361×46px, y=0 | No invented business text |
+| Notice/description | 361×44px, y=46px, fill `#F7F7F8` | 8px gap below |
+| Upper summary card | **361×199.61px**, y=98px, soft-blue `#E2EFFF` | Full-width first card |
+| Gap between cards | **8px** | Do not use Desktop 16px horizontal card gap |
+| Lower summary card | **361×162px**, y=305.61px, soft-blue `#E2EFFF` | Full-width second card |
+| Overall component | **361×467.61px** | 46+44+8+199.61+8+162 |
+| Following separate personal region | **361×244px** | Below this overview in the same white main section, not part of the 467.61px component |
+
+The mobile announcement section has its own `#F8FAFF` surface; its image-card examples are arranged horizontally. The Mobile 393×1859px and 393×852px examples represent screen crops, not fixed document heights. Keep content reachable under the bottom bar and optional floating chat, and retain privacy-safe skeletons for all data-bearing slots.
+
+#### 9.6.7 Tablet/Home Section Measurements — 1024px
+
+Read-only measured [compact-sidebar Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-411981) and [full-sidebar Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIuNl3/VDO-Agency-Portal?node-id=5912-408868). They are **two visual instances**, not evidence of the runtime rule selecting one. Both have a 16px horizontal content gutter.
+
+| Component | Compact sidebar at 1024px | Full sidebar at 1024px |
+|---|---:|---:|
+| Sidebar / content | **79.02 / 944.98px** | **200 / 824px** |
+| Banner | ≈944.98×277px | 824×277px |
+| Quick menu | **912.98×126px** | **792×126px** |
+| Shortcut tile (ten observed) | ≈91.3×80px | 79.2×80px |
+| Overall section | **912.98×329.64px** | **792×329.64px** |
+| Personal section | 912.98×168px | 792×168px |
+| Between overview / personal | 16px | 16px |
+| Support/tools | 565.98×430px | 445×430px |
+| Right-hand card | 323×334px | 323×334px |
+| Support/right gap | 24px | 24px |
+
+**Tablet composition:** Scale each quick-menu tile to the scoped available width rather than using Desktop 120.8px item slots. Overview and personal sections remain vertically stacked, while support tools and the 323px right-side card form a two-column row. Do not apply either Tablet/Home sidebar width to operational pages, which retain the generic 72px preference.
+
+#### 9.6.8 Pixel-Perfect Browser Verification Gate
+
+The root `preview.html` is an **AH Design catalog**, not a Figma Home product implementation. A matching `DESIGN.md` value and Figma layer measurement cannot establish browser-rendered pixel parity.
+
+For a reproducible Pixel-Perfect test, implement a separate Home screen with approved illustration/icon assets and licensed DB webfonts. Compare Figma and browser screenshots at **1440×1400**, **1024×1723 compact sidebar**, **1024×1760 full sidebar**, **393×1859** and **393×852**, plus any relevant short/long Desktop scenario variants. Record DPR, browser/version, viewport, loaded fonts, approved data/asset sources, image registration and pre-agreed tolerances. Compare overlay/difference images and component bounding boxes, fills, radii, shadows, type metrics, clipping, focus/keyboard/touch behavior and fixed navigation safe areas.
+
+**Certification status: NOT Pixel-Perfect certified.** The screenshot-diff gate remains open without a comparable runnable Home UI, approved source assets/fonts and reproducible image-diff evidence. Never invent a similarity score, pass a screenshot comparison based only on Figma layer values, or add protected business copy or font binaries to DESIGN.md.
+
 ### 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
 
 This subsection resolves generic operational defaults against the Home variants documented in Sections 9.6.1–9.6.4. Read-only Figma measurements were recorded here as **geometry evidence**; AI generating UI from DESIGN.md must not retrieve external business copy or assets or treat screenshots as content permission.
