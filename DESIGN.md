@@ -1,6 +1,6 @@
 ---
 version: 2.6
-revision: 2026-11-19-figma-home-responsive
+revision: 2026-11-20-pixel-spec-hardening
 name: AH Design
 purpose: Single source of truth for AI-generated AH Design HTML/React UI
 description: "AH enterprise UI visual language, tokens, components and privacy-safe generation"
@@ -284,6 +284,7 @@ Rules:
 - Standard operational cards remain white.
 - The intelligence gradient is a controlled exception; do not use it on generic KPI, table, form, or navigation surfaces.
 - Table header rows use `app-bg` (`#f0f6ff`) in the calibrated listing pattern.
+- `--ah-placeholder: #B2B2B2` is a low-contrast **visual/skeleton** color, not readable placeholder text on white (≈2.12:1). Use existing `--ah-slate: #606776` (≈5.68:1 on white) or other contrast-verified text color for visible input placeholders per Section 18. Preserve the existing token map.
 
 -----
 
@@ -1540,7 +1541,7 @@ Measured sources: [Tablet/Home](https://www.figma.com/design/9AlWhDuwC0XQ09fHWIu
 
 **Precedence:** The measured Mobile/Home navigation uses the bottom bar, **not a permanently displayed 280px drawer**. The 280px drawer in Section 13 remains a generic operational option unless separately authorized for Home. The 1024px Home rail is approximately 79px even though the generic tablet preference is 72px. Preserve the original global rules for non-Home pages.
 
-**QA boundary:** Home screen geometry has now been inspected at **1440px, 1024px, 393px**. Widths between and outside these references, component state variants, runtime behaviors and real-browser clipping/accessibility still need QA. Use fluid layout and wrapping without claiming pixel-perfect parity at unmeasured widths. Effective mobile touch targets remain at least 44px despite smaller displayed menu icons. Privacy-safe skeleton content remains the default.
+**QA boundary:** Home geometry has been inspected at **1440px, 1024px and 393px**; Mobile/Tablet section-level measurements are now in §§9.6.5–9.6.7. Other widths, component states, actual runtime interactions and browser clipping/accessibility still require QA. Use fluid layout and wrapping without claiming pixel-perfect parity at unmeasured widths. Effective mobile touch targets remain at least 44px despite smaller displayed menu icons. Privacy-safe skeleton content remains the default.
 
 #### 9.6.5 Mobile/Home Surface and Quick Menu — 393px
 
@@ -1602,12 +1603,12 @@ For a reproducible Pixel-Perfect test, implement a separate Home screen with app
 
 ### 9.7 Page Scope & Contract Precedence (AI Runtime Enforcement)
 
-This subsection resolves generic operational defaults against the Home variants documented in Sections 9.6.1–9.6.4. Read-only Figma measurements were recorded here as **geometry evidence**; AI generating UI from DESIGN.md must not retrieve external business copy or assets or treat screenshots as content permission.
+This subsection resolves generic operational defaults against the Home variants documented in Sections 9.6.1–9.6.8. Read-only Figma measurements were recorded here as **geometry evidence**; AI generating UI from DESIGN.md must not retrieve external business copy or assets or treat screenshots as content permission.
 
 | Priority | Applies to | Canonical rule | Conflict resolution |
 |---|---|---|---|
 | 1 | All pages | Sections 4–5 and 20 data/content privacy boundary | Never override privacy with a screenshot, a component name or an illustrative demo. |
-| 2 | Home Desktop at 1440 reference | Section 9.6 Home component geometry, white main surface, #E2EFFF summary cards, 292px search and 16/24 navigation label when approved runtime chrome exists | **Overrides** generic operational card/search/navigation defaults only inside the explicit Home scope. |
+| 2 | Home at measured Desktop 1440px, Tablet 1024px, Mobile 393px | Section 9.6: Desktop uses white Home canvas and scoped 292px search; Tablet uses two observed sidebar/content variants; Mobile uses `#F8FAFF` root, nested white panels, horizontal shortcuts, stacked summaries and bottom navigation | **Overrides generic operational styling only within the measured Home variant**; do not copy Desktop dimensions into smaller Home or operational pages. |
 | 3 | Operational/listing pages | Sections 2, 3, 6, 8, 9.1–9.3, 11 | Use #F0F6FF main background, white operational cards, 370px operational search and calibrated table density. Never inherit Home hero or Home support widgets. |
 | 4 | Tablet/mobile or missing page contract | For Home at measured 1024px/393px use §9.6.4; otherwise use §13 and applicable shared tokens | Do not transfer Home-only dimensions to other pages, invent missing states, or claim parity at unmeasured widths. |
 
@@ -1616,7 +1617,7 @@ Rules for AI adapters and machine-readable exports:
 - Select the **page type** before applying geometry, surface, typography or loading mode. An unqualified global "standard card" statement means the operational/listing default, not a command to erase the Home variant.
 - Design-only output remains `privacy-safe-skeleton` even on Home; `loading-skeleton` is reserved for approved runtime chrome and content boundaries.
 - Loading placeholder heights in §9.6 remain Desktop/Home reference examples, not universal sizing tokens. The newly documented Tablet/Home 1024px and Mobile/Home 393px measurements do not certify all intermediate widths, interaction states or other page types.
-- The machine-readable `contracts/page-profiles.json` and `contracts/approved-baseline.json` are QA/index artifacts; Section 9.6 and this precedence table remain the canonical authority.
+- This **single DESIGN.md is self-contained** on minimal GitHub `main`. Sections 8 and 9 provide component/page contracts, and Section 9.7 sets precedence; no machine-readable JSON registry, archived branch or removed `contracts/` directory is required.
 
 -----
 
@@ -1627,7 +1628,7 @@ page-types:
   home:
     density: compact
     useHomeOnlySections: true
-    referenceGeometry: "Section 9.6, Desktop/Home at 1440px"
+    referenceGeometry: "Section 9.6: Home at Desktop 1440px, Tablet 1024px (two sidebar variants), Mobile 393px; Section 13 for other widths"
     contentModeInMockup: skeleton-only
     productionLoadingMode: "loading-skeleton only with approved runtime chrome (Section 5.4)"
 
@@ -2242,7 +2243,7 @@ The Design System defines geometry and visual states only. It must never invent 
 
 1. Load tokens
 1. Load layout shell
-1. Load component registry
+1. Read component contracts in Section 8 and page-specific anatomy in Section 9 of this DESIGN.md (no external registry required)
 1. Resolve explicit runtime visibility only when display-safe runtime data exists
 1. Render page contract
 1. Apply responsive rules
@@ -2349,7 +2350,9 @@ html-generation-checklist:
     - "Main content horizontal gutter = 16px"
 
   homeVariant:
-    - "Apply Section 9.6 only on Home at the 1440px wide reference; other page contracts unchanged"
+    - "Use Section 9.6 for Home at measured Desktop 1440px, Tablet 1024px (both sidebar variants), and Mobile 393px; other widths follow Section 13 without pixel-parity claims"
+    - "At Mobile/Home 393px use #F8FAFF root plus white section overrides; 361px horizontal Quick Menu, vertically stacked 361px summaries, 64px top and 92px bottom navigation"
+    - "At Tablet/Home 1024px use 912.98px or 792px content regions according to the inspected sidebar variant; preserve operational page rules"
     - "Home production sidebar uses 16/24 text and Home search uses 292 x 40px with 200px input"
     - "Design-only remains privacy-safe-skeleton; Figma loading visuals only in approved runtime loading mode"
     - "Home loading placeholder is #d4d7dd with 100px pill radius; generic skeleton tokens remain unchanged"
@@ -2437,8 +2440,8 @@ When in doubt:
 
 ## 27. Known Gaps
 
-- The general operational reference remains desktop-first at 1280×768. Section 9.6 now includes measured Home geometry at **1440px Desktop, 1024px Tablet and 393px Mobile**. Other breakpoints, additional nested scenarios, actual interaction and browser behavior still require QA.
-- The primary five Desktop/Home screen instances, observed banner/icon/image anatomy and Tablet/Mobile Home variants are indexed in §9.6.1–9.6.4, but not all nested scenarios and interactive component states are certified. Non-Home search/sidebar rules remain unchanged until their own audit.
+- The general operational reference remains desktop-first at 1280×768. Section 9.6 now documents measured Home geometry at **1440px Desktop, 1024px Tablet and 393px Mobile**. Intermediate breakpoints, other scenarios, licensed font/asset parity, real-browser image diffs and accessibility interactions remain **open release gates** (§9.6.8).
+- The five primary Desktop/Home screens and scoped banner/image/card, Mobile/Tablet layout and Pixel QA rules are indexed in §§9.6.1–9.6.8, but not all nested scenarios and interactive component states are certified. Non-Home search/sidebar rules remain unchanged until their own audit.
 - Exact image/avatar/content data is runtime product data and remains skeletonized or absent in design-only output.
 - Motion timing is normalized by Section 14 because the static reference does not establish animation timing.
 - Webfont delivery still depends on approved DB webfont files and valid web-embedding rights.
